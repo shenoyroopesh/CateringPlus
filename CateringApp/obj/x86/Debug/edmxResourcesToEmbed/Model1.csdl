@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+  <EntityContainer Name="Model1Container" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Customers" EntityType="Model1.Customer" />
+    <EntitySet Name="Orders" EntityType="Model1.Order" />
+    <EntitySet Name="OrderItemGroups" EntityType="Model1.OrderItemGroup" />
+    <EntitySet Name="OrderItems" EntityType="Model1.OrderItem" />
+    <EntitySet Name="BillLines" EntityType="Model1.BillLine" />
+    <EntitySet Name="Bills" EntityType="Model1.Bill" />
+    <EntitySet Name="Receipts" EntityType="Model1.Receipt" />
+    <AssociationSet Name="CustomerOrder" Association="Model1.CustomerOrder">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="OrderOrderItemGroup" Association="Model1.OrderOrderItemGroup">
+      <End Role="Order" EntitySet="Orders" />
+      <End Role="OrderItemGroup" EntitySet="OrderItemGroups" />
+    </AssociationSet>
+    <AssociationSet Name="OrderItemGroupOrderItem" Association="Model1.OrderItemGroupOrderItem">
+      <End Role="OrderItemGroup" EntitySet="OrderItemGroups" />
+      <End Role="OrderItem" EntitySet="OrderItems" />
+    </AssociationSet>
+    <AssociationSet Name="BillBillLine" Association="Model1.BillBillLine">
+      <End Role="Bill" EntitySet="Bills" />
+      <End Role="BillLine" EntitySet="BillLines" />
+    </AssociationSet>
+    <AssociationSet Name="OrderBill" Association="Model1.OrderBill">
+      <End Role="Order" EntitySet="Orders" />
+      <End Role="Bill" EntitySet="Bills" />
+    </AssociationSet>
+    <AssociationSet Name="BillReceipt" Association="Model1.BillReceipt">
+      <End Role="Bill" EntitySet="Bills" />
+      <End Role="Receipt" EntitySet="Receipts" />
+    </AssociationSet>
+    <AssociationSet Name="BillLineOrderItem" Association="Model1.BillLineOrderItem">
+      <End Role="BillLine" EntitySet="BillLines" />
+      <End Role="OrderItem" EntitySet="OrderItems" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="Name" Nullable="false" />
+    <Property Type="String" Name="ContactNo" Nullable="false" />
+    <NavigationProperty Name="Orders" Relationship="Model1.CustomerOrder" FromRole="Customer" ToRole="Order" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="Venue" Nullable="false" />
+    <Property Type="DateTime" Name="Date" Nullable="false" />
+    <NavigationProperty Name="Customer" Relationship="Model1.CustomerOrder" FromRole="Order" ToRole="Customer" />
+    <Property Type="Int32" Name="CustomerId" Nullable="false" />
+    <NavigationProperty Name="OrderItemGroups" Relationship="Model1.OrderOrderItemGroup" FromRole="Order" ToRole="OrderItemGroup" />
+    <NavigationProperty Name="Bill" Relationship="Model1.OrderBill" FromRole="Order" ToRole="Bill" />
+    <Property Type="String" Name="Note" Nullable="false" />
+  </EntityType>
+  <EntityType Name="OrderItemGroup">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="Order" Relationship="Model1.OrderOrderItemGroup" FromRole="OrderItemGroup" ToRole="Order" />
+    <Property Type="Int32" Name="OrderId" Nullable="false" />
+    <NavigationProperty Name="OrderItems" Relationship="Model1.OrderItemGroupOrderItem" FromRole="OrderItemGroup" ToRole="OrderItem" />
+    <Property Type="Double" Name="Quantity" Nullable="false" />
+    <Property Type="String" Name="Name" Nullable="false" />
+  </EntityType>
+  <EntityType Name="OrderItem">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="OrderItemGroup" Relationship="Model1.OrderItemGroupOrderItem" FromRole="OrderItem" ToRole="OrderItemGroup" />
+    <Property Type="Int32" Name="OrderItemGroupId" Nullable="false" />
+    <NavigationProperty Name="BillLine" Relationship="Model1.BillLineOrderItem" FromRole="OrderItem" ToRole="BillLine" />
+    <Property Type="String" Name="Name" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BillLine">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Double" Name="Amount" Nullable="false" />
+    <NavigationProperty Name="Bill" Relationship="Model1.BillBillLine" FromRole="BillLine" ToRole="Bill" />
+    <Property Type="Int32" Name="BillId" Nullable="false" />
+    <NavigationProperty Name="OrderItem" Relationship="Model1.BillLineOrderItem" FromRole="BillLine" ToRole="OrderItem" />
+  </EntityType>
+  <EntityType Name="Bill">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="BillLines" Relationship="Model1.BillBillLine" FromRole="Bill" ToRole="BillLine" />
+    <NavigationProperty Name="Order" Relationship="Model1.OrderBill" FromRole="Bill" ToRole="Order" />
+    <NavigationProperty Name="Receipts" Relationship="Model1.BillReceipt" FromRole="Bill" ToRole="Receipt" />
+  </EntityType>
+  <EntityType Name="Receipt">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Double" Name="Amount" Nullable="false" />
+    <NavigationProperty Name="Bill" Relationship="Model1.BillReceipt" FromRole="Receipt" ToRole="Bill" />
+    <Property Type="Int32" Name="BillId" Nullable="false" />
+  </EntityType>
+  <Association Name="CustomerOrder">
+    <End Type="Model1.Customer" Role="Customer" Multiplicity="1" />
+    <End Type="Model1.Order" Role="Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="CustomerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="OrderOrderItemGroup">
+    <End Type="Model1.Order" Role="Order" Multiplicity="1" />
+    <End Type="Model1.OrderItemGroup" Role="OrderItemGroup" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OrderItemGroup">
+        <PropertyRef Name="OrderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="OrderItemGroupOrderItem">
+    <End Type="Model1.OrderItemGroup" Role="OrderItemGroup" Multiplicity="1" />
+    <End Type="Model1.OrderItem" Role="OrderItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrderItemGroup">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OrderItem">
+        <PropertyRef Name="OrderItemGroupId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BillBillLine">
+    <End Type="Model1.Bill" Role="Bill" Multiplicity="1" />
+    <End Type="Model1.BillLine" Role="BillLine" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Bill">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BillLine">
+        <PropertyRef Name="BillId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="OrderBill">
+    <End Type="Model1.Order" Role="Order" Multiplicity="1" />
+    <End Type="Model1.Bill" Role="Bill" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Bill">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BillReceipt">
+    <End Type="Model1.Bill" Role="Bill" Multiplicity="1" />
+    <End Type="Model1.Receipt" Role="Receipt" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Bill">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Receipt">
+        <PropertyRef Name="BillId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BillLineOrderItem">
+    <End Type="Model1.BillLine" Role="BillLine" Multiplicity="1" />
+    <End Type="Model1.OrderItem" Role="OrderItem" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="OrderItem">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BillLine">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
