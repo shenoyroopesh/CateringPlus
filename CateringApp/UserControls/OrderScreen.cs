@@ -12,41 +12,122 @@ namespace CateringApp.UserControls
 {
     public partial class OrderScreen : UserControl
     {
-        private Model1Container context;
+        private LocalDBEntities context;
+        Order order;
+        OrderItemGroup group;
+
         public OrderScreen()
         {
             InitializeComponent();
             this.Resize += new EventHandler(OrderScreen_Resize);
+            foreach (DataGridView d in new DataGridView[] { grdOrders, grdGroups, grdItems })
+            {
+                d.AutoGenerateColumns = d == grdOrders ? true : false;
+                d.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+                d.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            }
+            InitializeData();
+        }
 
+        private void InitializeData()
+        {
             //Initilize the object context
-            context = new Model1Container();
+            context = new LocalDBEntities();
+            this.grdOrders.DataSource = context.Orders.OrderByDescending(p => p.Id)
+                                            .Select(p => new
+                                            {
+                                                p.Id,
+                                                p.Customer.Name,
+                                                p.Customer.ContactNo,
+                                                p.Date,
+                                                p.Venue
+                                            });
 
-            try
-            {
-                this.grdOrders.AutoGenerateColumns = true;
-                this.grdOrders.DataSource = context.Orders
-                                                .Select(p => new { p.Id, p.Customer.Name, p.Date, p.Venue });
-            }
-            catch (EntitySqlException ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-
+            //load the dropdowns
+            cmbCustomerName.DataSource = context.Customers;
+            cmbCustomerName.DisplayMember = "Name";
         }
         
         private void grdOrders_SelectionChanged(object sender, EventArgs e)
         {
             //show the selection in the main form
-
             int orderId = Convert.ToInt32(grdOrders.CurrentRow.Cells["Id"].Value);
-            var order = context.Orders.Where(p => p.Id == orderId).First();
+            order = context.Orders.Where(p => p.Id == orderId).First();
+            bindOrderToUI(order);
+        }
 
+
+        private void grdGroups_SelectionChanged(object sender, EventArgs e)
+        {            
+            try
+            {
+                group = (OrderItemGroup)grdGroups.SelectedCells[0].OwningRow.DataBoundItem;
+            }
+            catch { group = null; }
+
+            if (group == null) { grdItems.DataSource = null; grdItems.Columns.Clear(); return; }
+
+            if (grdItems.Columns.Count == 0)
+            {
+                DataGridViewColumn name = new DataGridViewTextBoxColumn();
+                name.DataPropertyName = "Name";
+                name.HeaderText = "Name";
+                grdItems.Columns.Add(name);
+            }
+            grdItems.DataSource = group.OrderItems;
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            order.Date = txtDate.Value.Date;
+            Func<Customer> createCustomer = 
+                () => { 
+                    Customer c = new Customer(); 
+                    c.Name = cmbCustomerName.Text;
+                    context.Customers.AddObject(c);
+                    return c; 
+                };
+
+            order.Customer = cmbCustomerName.SelectedValue == null ? createCustomer() : (Customer)cmbCustomerName.SelectedValue;
+            order.Venue = txtVenue.Text;
+            order.Customer.ContactNo = txtContactNo.Text;
+            order.Note = txtNote.Text;
+
+            context.SaveChanges(SaveOptions.AcceptAllChangesAfterSave);
+            MessageBox.Show("Saved Successfully");
+            InitializeData();
+        }
+
+        private void btnNew_Click(object sender, EventArgs e)
+        {
+            order = new Order();
+            bindOrderToUI(order);
+            context.Orders.AddObject(order);
+        }
+
+        private void cmbCustomerName_TextChanged(object sender, EventArgs e)
+        {
+            cmbCustomerName_SelectedValueChanged(sender, e);
+        }
+
+        private void cmbCustomerName_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (cmbCustomerName.SelectedValue == null) { txtContactNo.Text = ""; return; }
+            txtContactNo.Text = ((Customer)cmbCustomerName.SelectedValue).ContactNo;
+        }
+
+        private void bindOrderToUI(Order order)
+        {
             //bind the data to the UI controls
-            lblOrderID.Text = order.Id.ToString();
+            lblOrderID.Text = order.Id == 0? "[New]": 
+                order.Id.ToString();
             txtVenue.Text = order.Venue;
-            cmbCustomerName.Text = order.Customer.Name;
-            txtContactNo.Text = order.Customer.ContactNo;
-            txtDate.Value = order.Date;
+            txtNote.Text = order.Note;
+
+            if(order.Customer!=null) cmbCustomerName.SelectedItem = order.Customer;
+
+            txtDate.Value = (order.Date > DateTime.MinValue && order.Date < DateTime.MaxValue) ? 
+                                order.Date : DateTime.Now;
 
             grdGroups.AutoGenerateColumns = false;
 
@@ -66,59 +147,26 @@ namespace CateringApp.UserControls
                 Id.Name = "Id";
                 Id.Visible = false;
 
-
                 grdGroups.Columns.Add(name);
                 grdGroups.Columns.Add(qty);
-                grdGroups.Columns.Add(Id);   
-            }  
-
-            grdGroups.DataSource = order.OrderItemGroups;
-        }
-
-
-        private void grdGroups_SelectionChanged(object sender, EventArgs e)
-        {
-            int itemGroupId = Convert.ToInt32(grdGroups.CurrentRow.Cells["Id"].Value);
-            var group = context.OrderItemGroups.Where(p => p.Id == itemGroupId).First();
-
-            grdItems.AutoGenerateColumns = false;
-
-            if (grdItems.Columns.Count == 0)
-            {
-                DataGridViewColumn name = new DataGridViewTextBoxColumn();
-                name.DataPropertyName = "Name";
-                name.HeaderText = "Name";
-
-                grdItems.Columns.Add(name);
+                grdGroups.Columns.Add(Id);
             }
-
-            grdItems.DataSource = group.OrderItems;
-        }
-
-        private void btnSave_Click(object sender, EventArgs e)
-        {
-            context.SaveChanges(SaveOptions.AcceptAllChangesAfterSave);
+            grdGroups.DataSource = order.OrderItemGroups;
         }
 
         void OrderScreen_Resize(object sender, EventArgs e)
         {
             orderPanel.Width = this.Width;
             orderPanel.Height = this.Height;
-
             itemsPanel.Width = orderPanel.Width;
-
             grdGroups.Width = itemsPanel.Width * 4 / 10;
             grdItems.Width = itemsPanel.Width * 4 / 10;
-
             btnPanel.Width = orderPanel.Width * 8 / 10;
             btnPanel.Height = btnSave.Height;
-
-            btnSave.Left = (btnSave.Parent.Width - btnSave.Width) / 2;
-
+            btnSave.Left = btnSave.Parent.Width * 4 / 10;
+            btnNew.Left = btnNew.Parent.Width * 6 / 10;
             grdOrders.Width = orderPanel.Width * 8 / 10;
         }
-
-       
 
     }
 }

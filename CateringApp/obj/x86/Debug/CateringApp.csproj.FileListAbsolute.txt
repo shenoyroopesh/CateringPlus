@@ -12,3 +12,4 @@ C:\Users\Roopesh\documents\visual studio 2010\Projects\CateringApp\CateringApp\o
 C:\Users\Roopesh\documents\visual studio 2010\Projects\CateringApp\CateringApp\obj\x86\Debug\CateringApp.UserControls.OrderScreen.resources
 C:\Users\Roopesh\documents\visual studio 2010\Projects\CateringApp\CateringApp\obj\x86\Debug\CateringApp.UserControls.BillingScreen.resources
 C:\Users\Roopesh\documents\visual studio 2010\Projects\CateringApp\CateringApp\obj\x86\Debug\CateringApp.UserControls.ReceiptScreen.resources
+C:\Users\Roopesh\documents\visual studio 2010\Projects\CateringApp\CateringApp\bin\Debug\System.Data.SqlServerCe.dll

@@ -27,6 +27,9 @@ namespace CateringApp
         {
             InitializeComponent();
             this.FormBorderStyle = FormBorderStyle.None;
+            Font font = new Font(SystemFonts.MessageBoxFont.FontFamily, 12);
+            this.Font = font;
+            menuStrip1.Font = font;
             this.WindowState = FormWindowState.Maximized;
 
             //initialize menu items 

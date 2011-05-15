@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="LocalDBModelStoreContainer" CdmEntityContainer="LocalDBEntities">
+    <EntitySetMapping Name="BillLines">
+      <EntityTypeMapping TypeName="LocalDBModel.BillLine">
+        <MappingFragment StoreEntitySet="BillLines">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="BillId" ColumnName="BillId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Bills">
+      <EntityTypeMapping TypeName="LocalDBModel.Bill">
+        <MappingFragment StoreEntitySet="Bills">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Customers">
+      <EntityTypeMapping TypeName="LocalDBModel.Customer">
+        <MappingFragment StoreEntitySet="Customers">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OrderItemGroups">
+      <EntityTypeMapping TypeName="LocalDBModel.OrderItemGroup">
+        <MappingFragment StoreEntitySet="OrderItemGroups">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OrderItems">
+      <EntityTypeMapping TypeName="LocalDBModel.OrderItem">
+        <MappingFragment StoreEntitySet="OrderItems">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="OrderItemGroupId" ColumnName="OrderItemGroupId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Orders">
+      <EntityTypeMapping TypeName="LocalDBModel.Order">
+        <MappingFragment StoreEntitySet="Orders">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Venue" ColumnName="Venue" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Receipts">
+      <EntityTypeMapping TypeName="LocalDBModel.Receipt">
+        <MappingFragment StoreEntitySet="Receipts">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="BillId" ColumnName="BillId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

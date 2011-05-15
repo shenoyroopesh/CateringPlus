@@ -1,0 +1,181 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="LocalDBModel.Store" Alias="Self" Provider="System.Data.SqlServerCe.4.0" ProviderManifestToken="4.0" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="LocalDBModelStoreContainer">
+    <EntitySet Name="BillLines" EntityType="LocalDBModel.Store.BillLines" store:Type="Tables" />
+    <EntitySet Name="Bills" EntityType="LocalDBModel.Store.Bills" store:Type="Tables" />
+    <EntitySet Name="Customers" EntityType="LocalDBModel.Store.Customers" store:Type="Tables" />
+    <EntitySet Name="OrderItemGroups" EntityType="LocalDBModel.Store.OrderItemGroups" store:Type="Tables" />
+    <EntitySet Name="OrderItems" EntityType="LocalDBModel.Store.OrderItems" store:Type="Tables" />
+    <EntitySet Name="Orders" EntityType="LocalDBModel.Store.Orders" store:Type="Tables" />
+    <EntitySet Name="Receipts" EntityType="LocalDBModel.Store.Receipts" store:Type="Tables" />
+    <AssociationSet Name="FK_BillBillLine" Association="LocalDBModel.Store.FK_BillBillLine">
+      <End Role="Bills" EntitySet="Bills" />
+      <End Role="BillLines" EntitySet="BillLines" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BillLineOrderItem" Association="LocalDBModel.Store.FK_BillLineOrderItem">
+      <End Role="OrderItems" EntitySet="OrderItems" />
+      <End Role="BillLines" EntitySet="BillLines" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BillReceipt" Association="LocalDBModel.Store.FK_BillReceipt">
+      <End Role="Bills" EntitySet="Bills" />
+      <End Role="Receipts" EntitySet="Receipts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CustomerOrder" Association="LocalDBModel.Store.FK_CustomerOrder">
+      <End Role="Customers" EntitySet="Customers" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderBill" Association="LocalDBModel.Store.FK_OrderBill">
+      <End Role="Orders" EntitySet="Orders" />
+      <End Role="Bills" EntitySet="Bills" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderItemGroupOrderItem" Association="LocalDBModel.Store.FK_OrderItemGroupOrderItem">
+      <End Role="OrderItemGroups" EntitySet="OrderItemGroups" />
+      <End Role="OrderItems" EntitySet="OrderItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderOrderItemGroup" Association="LocalDBModel.Store.FK_OrderOrderItemGroup">
+      <End Role="Orders" EntitySet="Orders" />
+      <End Role="OrderItemGroups" EntitySet="OrderItemGroups" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="BillLines">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Amount" Type="float" Nullable="false" />
+    <Property Name="BillId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Bills">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+  </EntityType>
+  <EntityType Name="Customers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" />
+    <Property Name="ContactNo" Type="nvarchar" Nullable="false" />
+  </EntityType>
+  <EntityType Name="OrderItemGroups">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="OrderId" Type="int" Nullable="false" />
+    <Property Name="Quantity" Type="float" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" />
+  </EntityType>
+  <EntityType Name="OrderItems">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="OrderItemGroupId" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Orders">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Venue" Type="nvarchar" Nullable="false" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
+    <Property Name="CustomerId" Type="int" Nullable="false" />
+    <Property Name="Note" Type="nvarchar" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Receipts">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Amount" Type="float" Nullable="false" />
+    <Property Name="BillId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_BillBillLine">
+    <End Role="Bills" Type="LocalDBModel.Store.Bills" Multiplicity="1" />
+    <End Role="BillLines" Type="LocalDBModel.Store.BillLines" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Bills">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BillLines">
+        <PropertyRef Name="BillId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BillLineOrderItem">
+    <End Role="OrderItems" Type="LocalDBModel.Store.OrderItems" Multiplicity="1" />
+    <End Role="BillLines" Type="LocalDBModel.Store.BillLines" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="OrderItems">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BillLines">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BillReceipt">
+    <End Role="Bills" Type="LocalDBModel.Store.Bills" Multiplicity="1" />
+    <End Role="Receipts" Type="LocalDBModel.Store.Receipts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Bills">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Receipts">
+        <PropertyRef Name="BillId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CustomerOrder">
+    <End Role="Customers" Type="LocalDBModel.Store.Customers" Multiplicity="1" />
+    <End Role="Orders" Type="LocalDBModel.Store.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="CustomerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderBill">
+    <End Role="Orders" Type="LocalDBModel.Store.Orders" Multiplicity="1" />
+    <End Role="Bills" Type="LocalDBModel.Store.Bills" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Orders">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Bills">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderItemGroupOrderItem">
+    <End Role="OrderItemGroups" Type="LocalDBModel.Store.OrderItemGroups" Multiplicity="1" />
+    <End Role="OrderItems" Type="LocalDBModel.Store.OrderItems" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrderItemGroups">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OrderItems">
+        <PropertyRef Name="OrderItemGroupId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderOrderItemGroup">
+    <End Role="Orders" Type="LocalDBModel.Store.Orders" Multiplicity="1" />
+    <End Role="OrderItemGroups" Type="LocalDBModel.Store.OrderItemGroups" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Orders">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OrderItemGroups">
+        <PropertyRef Name="OrderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

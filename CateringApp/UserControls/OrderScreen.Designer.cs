@@ -46,6 +46,9 @@
             this.orderPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.itemsPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.btnPanel = new System.Windows.Forms.Panel();
+            this.btnNew = new System.Windows.Forms.Button();
+            this.lblNote = new System.Windows.Forms.Label();
+            this.txtNote = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdGroups)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdItems)).BeginInit();
@@ -70,15 +73,19 @@
             this.tableLayoutPanel1.Controls.Add(this.cmbCustomerName, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.txtVenue, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.txtDate, 1, 4);
+            this.tableLayoutPanel1.Controls.Add(this.lblNote, 0, 5);
+            this.tableLayoutPanel1.Controls.Add(this.txtNote, 1, 5);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 5;
+            this.tableLayoutPanel1.RowCount = 7;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(531, 97);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(531, 132);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // lblOrderID
@@ -101,7 +108,7 @@
             // lblCustomerName
             // 
             this.lblCustomerName.AutoSize = true;
-            this.lblCustomerName.Location = new System.Drawing.Point(3, 18);
+            this.lblCustomerName.Location = new System.Drawing.Point(3, 16);
             this.lblCustomerName.Name = "lblCustomerName";
             this.lblCustomerName.Size = new System.Drawing.Size(82, 13);
             this.lblCustomerName.TabIndex = 1;
@@ -110,7 +117,7 @@
             // lblContactNo
             // 
             this.lblContactNo.AutoSize = true;
-            this.lblContactNo.Location = new System.Drawing.Point(3, 36);
+            this.lblContactNo.Location = new System.Drawing.Point(3, 32);
             this.lblContactNo.Name = "lblContactNo";
             this.lblContactNo.Size = new System.Drawing.Size(61, 13);
             this.lblContactNo.TabIndex = 2;
@@ -119,7 +126,7 @@
             // lblVenue
             // 
             this.lblVenue.AutoSize = true;
-            this.lblVenue.Location = new System.Drawing.Point(3, 56);
+            this.lblVenue.Location = new System.Drawing.Point(3, 52);
             this.lblVenue.Name = "lblVenue";
             this.lblVenue.Size = new System.Drawing.Size(38, 13);
             this.lblVenue.TabIndex = 3;
@@ -128,7 +135,7 @@
             // lblDate
             // 
             this.lblDate.AutoSize = true;
-            this.lblDate.Location = new System.Drawing.Point(3, 76);
+            this.lblDate.Location = new System.Drawing.Point(3, 72);
             this.lblDate.Name = "lblDate";
             this.lblDate.Size = new System.Drawing.Size(30, 13);
             this.lblDate.TabIndex = 4;
@@ -136,40 +143,42 @@
             // 
             // txtContactNo
             // 
-            this.txtContactNo.Location = new System.Drawing.Point(268, 39);
+            this.txtContactNo.Location = new System.Drawing.Point(268, 35);
             this.txtContactNo.Name = "txtContactNo";
             this.txtContactNo.Size = new System.Drawing.Size(164, 20);
-            this.txtContactNo.TabIndex = 7;
+            this.txtContactNo.TabIndex = 2;
             // 
             // cmbCustomerName
             // 
             this.cmbCustomerName.FormattingEnabled = true;
-            this.cmbCustomerName.Location = new System.Drawing.Point(268, 21);
+            this.cmbCustomerName.Location = new System.Drawing.Point(268, 19);
             this.cmbCustomerName.Name = "cmbCustomerName";
             this.cmbCustomerName.Size = new System.Drawing.Size(164, 21);
-            this.cmbCustomerName.TabIndex = 6;
+            this.cmbCustomerName.TabIndex = 1;
+            this.cmbCustomerName.SelectedValueChanged += new System.EventHandler(this.cmbCustomerName_SelectedValueChanged);
+            this.cmbCustomerName.TextChanged += new System.EventHandler(this.cmbCustomerName_TextChanged);
             // 
             // txtVenue
             // 
-            this.txtVenue.Location = new System.Drawing.Point(268, 59);
+            this.txtVenue.Location = new System.Drawing.Point(268, 55);
             this.txtVenue.Name = "txtVenue";
             this.txtVenue.Size = new System.Drawing.Size(164, 20);
-            this.txtVenue.TabIndex = 8;
+            this.txtVenue.TabIndex = 3;
             // 
             // txtDate
             // 
-            this.txtDate.Location = new System.Drawing.Point(268, 79);
+            this.txtDate.Location = new System.Drawing.Point(268, 75);
             this.txtDate.Name = "txtDate";
             this.txtDate.Size = new System.Drawing.Size(200, 20);
-            this.txtDate.TabIndex = 9;
+            this.txtDate.TabIndex = 4;
             // 
             // grdGroups
             // 
             this.grdGroups.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grdGroups.Location = new System.Drawing.Point(3, 3);
             this.grdGroups.Name = "grdGroups";
-            this.grdGroups.Size = new System.Drawing.Size(206, 150);
-            this.grdGroups.TabIndex = 1;
+            this.grdGroups.Size = new System.Drawing.Size(206, 116);
+            this.grdGroups.TabIndex = 6;
             this.grdGroups.SelectionChanged += new System.EventHandler(this.grdGroups_SelectionChanged);
             // 
             // grdItems
@@ -177,25 +186,25 @@
             this.grdItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grdItems.Location = new System.Drawing.Point(215, 3);
             this.grdItems.Name = "grdItems";
-            this.grdItems.Size = new System.Drawing.Size(206, 150);
-            this.grdItems.TabIndex = 2;
+            this.grdItems.Size = new System.Drawing.Size(206, 116);
+            this.grdItems.TabIndex = 7;
             // 
             // grdOrders
             // 
             this.grdOrders.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grdOrders.Location = new System.Drawing.Point(3, 319);
+            this.grdOrders.Location = new System.Drawing.Point(3, 312);
             this.grdOrders.Name = "grdOrders";
             this.grdOrders.Size = new System.Drawing.Size(448, 150);
-            this.grdOrders.TabIndex = 3;
+            this.grdOrders.TabIndex = 10;
             this.grdOrders.SelectionChanged += new System.EventHandler(this.grdOrders_SelectionChanged);
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(0, 3);
+            this.btnSave.Location = new System.Drawing.Point(6, 4);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
-            this.btnSave.TabIndex = 4;
-            this.btnSave.Text = "Save";
+            this.btnSave.TabIndex = 8;
+            this.btnSave.Text = "&Save";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
@@ -206,7 +215,7 @@
             this.orderPanel.Controls.Add(this.btnPanel);
             this.orderPanel.Controls.Add(this.grdOrders);
             this.orderPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.orderPanel.Location = new System.Drawing.Point(26, 26);
+            this.orderPanel.Location = new System.Drawing.Point(26, 17);
             this.orderPanel.Name = "orderPanel";
             this.orderPanel.Size = new System.Drawing.Size(547, 603);
             this.orderPanel.TabIndex = 5;
@@ -215,18 +224,47 @@
             // 
             this.itemsPanel.Controls.Add(this.grdGroups);
             this.itemsPanel.Controls.Add(this.grdItems);
-            this.itemsPanel.Location = new System.Drawing.Point(3, 106);
+            this.itemsPanel.Location = new System.Drawing.Point(3, 141);
             this.itemsPanel.Name = "itemsPanel";
-            this.itemsPanel.Size = new System.Drawing.Size(531, 171);
+            this.itemsPanel.Size = new System.Drawing.Size(531, 129);
             this.itemsPanel.TabIndex = 5;
             // 
             // btnPanel
             // 
+            this.btnPanel.Controls.Add(this.btnNew);
             this.btnPanel.Controls.Add(this.btnSave);
-            this.btnPanel.Location = new System.Drawing.Point(3, 283);
+            this.btnPanel.Location = new System.Drawing.Point(3, 276);
             this.btnPanel.Name = "btnPanel";
             this.btnPanel.Size = new System.Drawing.Size(531, 30);
             this.btnPanel.TabIndex = 6;
+            // 
+            // btnNew
+            // 
+            this.btnNew.Location = new System.Drawing.Point(87, 4);
+            this.btnNew.Name = "btnNew";
+            this.btnNew.Size = new System.Drawing.Size(75, 23);
+            this.btnNew.TabIndex = 9;
+            this.btnNew.Text = "&New";
+            this.btnNew.UseVisualStyleBackColor = true;
+            this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
+            // 
+            // lblNote
+            // 
+            this.lblNote.AutoSize = true;
+            this.lblNote.Location = new System.Drawing.Point(3, 92);
+            this.lblNote.Name = "lblNote";
+            this.lblNote.Size = new System.Drawing.Size(30, 13);
+            this.lblNote.TabIndex = 6;
+            this.lblNote.Text = "Note";
+            // 
+            // txtNote
+            // 
+            this.txtNote.Location = new System.Drawing.Point(268, 95);
+            this.txtNote.Multiline = true;
+            this.txtNote.Name = "txtNote";
+            this.tableLayoutPanel1.SetRowSpan(this.txtNote, 2);
+            this.txtNote.Size = new System.Drawing.Size(164, 34);
+            this.txtNote.TabIndex = 5;
             // 
             // OrderScreen
             // 
@@ -268,5 +306,8 @@
         private System.Windows.Forms.FlowLayoutPanel orderPanel;
         private System.Windows.Forms.FlowLayoutPanel itemsPanel;
         private System.Windows.Forms.Panel btnPanel;
+        protected internal System.Windows.Forms.Button btnNew;
+        private System.Windows.Forms.Label lblNote;
+        private System.Windows.Forms.TextBox txtNote;
     }
 }
