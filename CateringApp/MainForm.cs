@@ -26,16 +26,16 @@ namespace CateringApp
         public MainForm()
         {
             InitializeComponent();
-            this.FormBorderStyle = FormBorderStyle.None;
+            FormBorderStyle = FormBorderStyle.None;
             Font font = new Font(SystemFonts.MessageBoxFont.FontFamily, 12);
-            this.Font = font;
+            Font = font;
             menuStrip1.Font = font;
-            this.WindowState = FormWindowState.Maximized;
+            WindowState = FormWindowState.Maximized;
 
             //initialize menu items 
-            menuItems.Add(new menuMap(new ToolStripMenuItem("Order"), new OrderScreen(), Color.Blue));
-            menuItems.Add(new menuMap(new ToolStripMenuItem("Billing"), new BillingScreen(), Color.Green));            
-            menuItems.Add(new menuMap(new ToolStripMenuItem("Receipt"), new ReceiptScreen(), Color.Brown));
+            menuItems.Add(new menuMap(new ToolStripMenuItem("Order"), new OrderScreen(), Color.Beige));
+            menuItems.Add(new menuMap(new ToolStripMenuItem("Billing"), new BillingScreen(), Color.AliceBlue));            
+            menuItems.Add(new menuMap(new ToolStripMenuItem("Receipt"), new ReceiptScreen(), Color.Cyan));
 
             /* *****************
              * LAYOUT SECTION
@@ -65,6 +65,14 @@ namespace CateringApp
 
             //by default call the first menu item
             OnMenuClick(menuItems.First().userControl, menuItems.First().color, menuItems.First().menuItem);
+
+            /* ****************
+             * BACKGROUND COLOR
+             * *****************/
+
+            mainFormContainer.Panel2.BackColor = DEFAULT_BACKGROUND;
+            mainFormContainer.BackColor = DEFAULT_BACKGROUND;
+            menuStrip1.BackColor = DEFAULT_BACKGROUND;
         }
 
         void MainForm_Resize(object sender, EventArgs e)

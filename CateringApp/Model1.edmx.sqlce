@@ -12,19 +12,19 @@
 -- NOTE: if the constraint does not exist, an ignorable error will be reported.
 -- --------------------------------------------------
 
-    ALTER TABLE [Orders] DROP CONSTRAINT [FK_CustomerOrder];
+	ALTER TABLE [Orders] DROP CONSTRAINT [FK_CustomerOrder];
 GO
-    ALTER TABLE [OrderItemGroups] DROP CONSTRAINT [FK_OrderOrderItemGroup];
+	ALTER TABLE [OrderItemGroups] DROP CONSTRAINT [FK_OrderOrderItemGroup];
 GO
-    ALTER TABLE [OrderItems] DROP CONSTRAINT [FK_OrderItemGroupOrderItem];
+	ALTER TABLE [OrderItems] DROP CONSTRAINT [FK_OrderItemGroupOrderItem];
 GO
-    ALTER TABLE [BillLines] DROP CONSTRAINT [FK_BillBillLine];
+	ALTER TABLE [BillLines] DROP CONSTRAINT [FK_BillBillLine];
 GO
-    ALTER TABLE [Bills] DROP CONSTRAINT [FK_OrderBill];
+	ALTER TABLE [Bills] DROP CONSTRAINT [FK_OrderBill];
 GO
-    ALTER TABLE [Receipts] DROP CONSTRAINT [FK_BillReceipt];
+	ALTER TABLE [Receipts] DROP CONSTRAINT [FK_BillReceipt];
 GO
-    ALTER TABLE [BillLines] DROP CONSTRAINT [FK_BillLineOrderItem];
+	ALTER TABLE [BillLines] DROP CONSTRAINT [FK_BillLineOrderItem];
 GO
 
 -- --------------------------------------------------
@@ -32,19 +32,19 @@ GO
 -- NOTE: if the table does not exist, an ignorable error will be reported.
 -- --------------------------------------------------
 
-    DROP TABLE [Customers];
+	DROP TABLE [Customers];
 GO
-    DROP TABLE [Orders];
+	DROP TABLE [Orders];
 GO
-    DROP TABLE [OrderItemGroups];
+	DROP TABLE [OrderItemGroups];
 GO
-    DROP TABLE [OrderItems];
+	DROP TABLE [OrderItems];
 GO
-    DROP TABLE [BillLines];
+	DROP TABLE [BillLines];
 GO
-    DROP TABLE [Bills];
+	DROP TABLE [Bills];
 GO
-    DROP TABLE [Receipts];
+	DROP TABLE [Receipts];
 GO
 
 -- --------------------------------------------------
@@ -53,58 +53,60 @@ GO
 
 -- Creating table 'Customers'
 CREATE TABLE [Customers] (
-    [Id] int IDENTITY(1,1) NOT NULL,
-    [Name] nvarchar(4000)  NOT NULL,
-    [ContactNo] nvarchar(4000)  NOT NULL
+	[Id] int IDENTITY(1,1) NOT NULL,
+	[Name] nvarchar(4000)  NOT NULL,
+	[ContactNo] nvarchar(4000)  NOT NULL
 );
 GO
 
 -- Creating table 'Orders'
 CREATE TABLE [Orders] (
-    [Id] int IDENTITY(1,1) NOT NULL,
-    [Venue] nvarchar(4000)  NOT NULL,
-    [Date] datetime  NOT NULL,
-    [CustomerId] int  NOT NULL,
-    [Note] nvarchar(4000)  NOT NULL
+	[Id] int IDENTITY(1,1) NOT NULL,
+	[Venue] nvarchar(4000)  NOT NULL,
+	[Date] datetime  NOT NULL,
+	[CustomerId] int  NOT NULL,
+	[Note] nvarchar(4000)  NOT NULL
 );
 GO
 
 -- Creating table 'OrderItemGroups'
 CREATE TABLE [OrderItemGroups] (
-    [Id] int IDENTITY(1,1) NOT NULL,
-    [OrderId] int  NOT NULL,
-    [Quantity] float  NOT NULL,
-    [Name] nvarchar(4000)  NOT NULL
+	[Id] int IDENTITY(1,1) NOT NULL,
+	[OrderId] int  NOT NULL,
+	[Quantity] float  NOT NULL,
+	[Name] nvarchar(4000)  NOT NULL
 );
 GO
 
 -- Creating table 'OrderItems'
 CREATE TABLE [OrderItems] (
-    [Id] int IDENTITY(1,1) NOT NULL,
-    [OrderItemGroupId] int  NOT NULL,
-    [Name] nvarchar(4000)  NOT NULL
+	[Id] int IDENTITY(1,1) NOT NULL,
+	[OrderItemGroupId] int  NOT NULL,
+	[Name] nvarchar(4000)  NOT NULL
 );
 GO
 
 -- Creating table 'BillLines'
 CREATE TABLE [BillLines] (
-    [Id] int IDENTITY(1,1) NOT NULL,
-    [Amount] float  NOT NULL,
-    [BillId] int  NOT NULL
+	[Id] int IDENTITY(1,1) NOT NULL,
+	[Amount] float  NOT NULL,
+	[BillId] int  NOT NULL
 );
 GO
 
 -- Creating table 'Bills'
 CREATE TABLE [Bills] (
-    [Id] int IDENTITY(1,1) NOT NULL
+	[Id] int IDENTITY(1,1) NOT NULL,
+	[Date] datetime NOT NULL
 );
 GO
 
 -- Creating table 'Receipts'
 CREATE TABLE [Receipts] (
-    [Id] int IDENTITY(1,1) NOT NULL,
-    [Amount] float  NOT NULL,
-    [BillId] int  NOT NULL
+	[Id] int IDENTITY(1,1) NOT NULL,
+	[Amount] float  NOT NULL,
+	[BillId] int  NOT NULL,
+	[Date] datetime NOT NULL
 );
 GO
 
@@ -115,43 +117,43 @@ GO
 -- Creating primary key on [Id] in table 'Customers'
 ALTER TABLE [Customers]
 ADD CONSTRAINT [PK_Customers]
-    PRIMARY KEY ([Id] );
+	PRIMARY KEY ([Id] );
 GO
 
 -- Creating primary key on [Id] in table 'Orders'
 ALTER TABLE [Orders]
 ADD CONSTRAINT [PK_Orders]
-    PRIMARY KEY ([Id] );
+	PRIMARY KEY ([Id] );
 GO
 
 -- Creating primary key on [Id] in table 'OrderItemGroups'
 ALTER TABLE [OrderItemGroups]
 ADD CONSTRAINT [PK_OrderItemGroups]
-    PRIMARY KEY ([Id] );
+	PRIMARY KEY ([Id] );
 GO
 
 -- Creating primary key on [Id] in table 'OrderItems'
 ALTER TABLE [OrderItems]
 ADD CONSTRAINT [PK_OrderItems]
-    PRIMARY KEY ([Id] );
+	PRIMARY KEY ([Id] );
 GO
 
 -- Creating primary key on [Id] in table 'BillLines'
 ALTER TABLE [BillLines]
 ADD CONSTRAINT [PK_BillLines]
-    PRIMARY KEY ([Id] );
+	PRIMARY KEY ([Id] );
 GO
 
 -- Creating primary key on [Id] in table 'Bills'
 ALTER TABLE [Bills]
 ADD CONSTRAINT [PK_Bills]
-    PRIMARY KEY ([Id] );
+	PRIMARY KEY ([Id] );
 GO
 
 -- Creating primary key on [Id] in table 'Receipts'
 ALTER TABLE [Receipts]
 ADD CONSTRAINT [PK_Receipts]
-    PRIMARY KEY ([Id] );
+	PRIMARY KEY ([Id] );
 GO
 
 -- --------------------------------------------------
@@ -161,89 +163,89 @@ GO
 -- Creating foreign key on [CustomerId] in table 'Orders'
 ALTER TABLE [Orders]
 ADD CONSTRAINT [FK_CustomerOrder]
-    FOREIGN KEY ([CustomerId])
-    REFERENCES [Customers]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
+	FOREIGN KEY ([CustomerId])
+	REFERENCES [Customers]
+		([Id])
+	ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_CustomerOrder'
 CREATE INDEX [IX_FK_CustomerOrder]
 ON [Orders]
-    ([CustomerId]);
+	([CustomerId]);
 GO
 
 -- Creating foreign key on [OrderId] in table 'OrderItemGroups'
 ALTER TABLE [OrderItemGroups]
 ADD CONSTRAINT [FK_OrderOrderItemGroup]
-    FOREIGN KEY ([OrderId])
-    REFERENCES [Orders]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
+	FOREIGN KEY ([OrderId])
+	REFERENCES [Orders]
+		([Id])
+	ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_OrderOrderItemGroup'
 CREATE INDEX [IX_FK_OrderOrderItemGroup]
 ON [OrderItemGroups]
-    ([OrderId]);
+	([OrderId]);
 GO
 
 -- Creating foreign key on [OrderItemGroupId] in table 'OrderItems'
 ALTER TABLE [OrderItems]
 ADD CONSTRAINT [FK_OrderItemGroupOrderItem]
-    FOREIGN KEY ([OrderItemGroupId])
-    REFERENCES [OrderItemGroups]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
+	FOREIGN KEY ([OrderItemGroupId])
+	REFERENCES [OrderItemGroups]
+		([Id])
+	ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_OrderItemGroupOrderItem'
 CREATE INDEX [IX_FK_OrderItemGroupOrderItem]
 ON [OrderItems]
-    ([OrderItemGroupId]);
+	([OrderItemGroupId]);
 GO
 
 -- Creating foreign key on [BillId] in table 'BillLines'
 ALTER TABLE [BillLines]
 ADD CONSTRAINT [FK_BillBillLine]
-    FOREIGN KEY ([BillId])
-    REFERENCES [Bills]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
+	FOREIGN KEY ([BillId])
+	REFERENCES [Bills]
+		([Id])
+	ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_BillBillLine'
 CREATE INDEX [IX_FK_BillBillLine]
 ON [BillLines]
-    ([BillId]);
+	([BillId]);
 GO
 
 -- Creating foreign key on [Id] in table 'Bills'
 ALTER TABLE [Bills]
 ADD CONSTRAINT [FK_OrderBill]
-    FOREIGN KEY ([Id])
-    REFERENCES [Orders]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
+	FOREIGN KEY ([Id])
+	REFERENCES [Orders]
+		([Id])
+	ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
 -- Creating foreign key on [BillId] in table 'Receipts'
 ALTER TABLE [Receipts]
 ADD CONSTRAINT [FK_BillReceipt]
-    FOREIGN KEY ([BillId])
-    REFERENCES [Bills]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
+	FOREIGN KEY ([BillId])
+	REFERENCES [Bills]
+		([Id])
+	ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_BillReceipt'
 CREATE INDEX [IX_FK_BillReceipt]
 ON [Receipts]
-    ([BillId]);
+	([BillId]);
 GO
 
 -- Creating foreign key on [Id] in table 'BillLines'
 ALTER TABLE [BillLines]
 ADD CONSTRAINT [FK_BillLineOrderItem]
-    FOREIGN KEY ([Id])
-    REFERENCES [OrderItems]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
+	FOREIGN KEY ([Id])
+	REFERENCES [OrderItems]
+		([Id])
+	ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
 -- --------------------------------------------------

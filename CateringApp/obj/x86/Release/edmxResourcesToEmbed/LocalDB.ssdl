@@ -12,6 +12,10 @@
       <End Role="Bills" EntitySet="Bills" />
       <End Role="BillLines" EntitySet="BillLines" />
     </AssociationSet>
+    <AssociationSet Name="FK_BillLineOrderItem" Association="LocalDBModel.Store.FK_BillLineOrderItem">
+      <End Role="OrderItems" EntitySet="OrderItems" />
+      <End Role="BillLines" EntitySet="BillLines" />
+    </AssociationSet>
     <AssociationSet Name="FK_BillReceipt" Association="LocalDBModel.Store.FK_BillReceipt">
       <End Role="Bills" EntitySet="Bills" />
       <End Role="Receipts" EntitySet="Receipts" />
@@ -19,6 +23,10 @@
     <AssociationSet Name="FK_CustomerOrder" Association="LocalDBModel.Store.FK_CustomerOrder">
       <End Role="Customers" EntitySet="Customers" />
       <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderBill" Association="LocalDBModel.Store.FK_OrderBill">
+      <End Role="Orders" EntitySet="Orders" />
+      <End Role="Bills" EntitySet="Bills" />
     </AssociationSet>
     <AssociationSet Name="FK_OrderItemGroupOrderItem" Association="LocalDBModel.Store.FK_OrderItemGroupOrderItem">
       <End Role="OrderItemGroups" EntitySet="OrderItemGroups" />
@@ -102,6 +110,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_BillLineOrderItem">
+    <End Role="OrderItems" Type="LocalDBModel.Store.OrderItems" Multiplicity="1" />
+    <End Role="BillLines" Type="LocalDBModel.Store.BillLines" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="OrderItems">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BillLines">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_BillReceipt">
     <End Role="Bills" Type="LocalDBModel.Store.Bills" Multiplicity="1" />
     <End Role="Receipts" Type="LocalDBModel.Store.Receipts" Multiplicity="*" />
@@ -123,6 +143,18 @@
       </Principal>
       <Dependent Role="Orders">
         <PropertyRef Name="CustomerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderBill">
+    <End Role="Orders" Type="LocalDBModel.Store.Orders" Multiplicity="1" />
+    <End Role="Bills" Type="LocalDBModel.Store.Bills" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Orders">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Bills">
+        <PropertyRef Name="Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

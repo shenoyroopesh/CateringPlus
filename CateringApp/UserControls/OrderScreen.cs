@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Data.Objects;
+using System.Data.Common;
 
 namespace CateringApp.UserControls
 {
@@ -19,7 +20,7 @@ namespace CateringApp.UserControls
         public OrderScreen()
         {
             InitializeComponent();
-            this.Resize += new EventHandler(OrderScreen_Resize);
+            Resize += new EventHandler(OrderScreen_Resize);
             foreach (DataGridView d in new DataGridView[] { grdOrders, grdGroups, grdItems })
             {
                 d.AutoGenerateColumns = d == grdOrders ? true : false;
@@ -33,7 +34,7 @@ namespace CateringApp.UserControls
         {
             //Initilize the object context
             context = new LocalDBEntities();
-            this.grdOrders.DataSource = context.Orders.OrderByDescending(p => p.Id)
+            grdOrders.DataSource = context.Orders.OrderByDescending(p => p.Id)
                                             .Select(p => new
                                             {
                                                 p.Id,
@@ -45,7 +46,7 @@ namespace CateringApp.UserControls
 
             //load the dropdowns
             cmbCustomerName.DataSource = context.Customers;
-            cmbCustomerName.DisplayMember = "Name";
+            cmbCustomerName.DisplayMember = "Name";            
         }
         
         private void grdOrders_SelectionChanged(object sender, EventArgs e)
@@ -92,10 +93,10 @@ namespace CateringApp.UserControls
             order.Venue = txtVenue.Text;
             order.Customer.ContactNo = txtContactNo.Text;
             order.Note = txtNote.Text;
-
             context.SaveChanges(SaveOptions.AcceptAllChangesAfterSave);
             MessageBox.Show("Saved Successfully");
             InitializeData();
+            grdOrders_SelectionChanged(null, null);
         }
 
         private void btnNew_Click(object sender, EventArgs e)
@@ -103,6 +104,9 @@ namespace CateringApp.UserControls
             order = new Order();
             bindOrderToUI(order);
             context.Orders.AddObject(order);
+
+            cmbCustomerName.Text = "";
+            txtContactNo.Text = "";
         }
 
         private void cmbCustomerName_TextChanged(object sender, EventArgs e)
@@ -119,8 +123,7 @@ namespace CateringApp.UserControls
         private void bindOrderToUI(Order order)
         {
             //bind the data to the UI controls
-            lblOrderID.Text = order.Id == 0? "[New]": 
-                order.Id.ToString();
+            lblOrderID.Text = order.Id == 0? "[New]": order.Id.ToString();
             txtVenue.Text = order.Venue;
             txtNote.Text = order.Note;
 

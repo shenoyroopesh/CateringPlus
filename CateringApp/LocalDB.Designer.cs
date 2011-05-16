@@ -19,12 +19,12 @@ using System.Runtime.Serialization;
 #region EDM Relationship Metadata
 
 [assembly: EdmRelationshipAttribute("LocalDBModel", "FK_BillBillLine", "Bills", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(CateringApp.Bill), "BillLines", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(CateringApp.BillLine), true)]
-[assembly: EdmRelationshipAttribute("LocalDBModel", "FK_BillLineOrderItem", "OrderItems", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(CateringApp.OrderItem), "BillLines", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(CateringApp.BillLine), true)]
 [assembly: EdmRelationshipAttribute("LocalDBModel", "FK_BillReceipt", "Bills", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(CateringApp.Bill), "Receipts", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(CateringApp.Receipt), true)]
-[assembly: EdmRelationshipAttribute("LocalDBModel", "FK_OrderBill", "Orders", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(CateringApp.Order), "Bills", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(CateringApp.Bill), true)]
 [assembly: EdmRelationshipAttribute("LocalDBModel", "FK_CustomerOrder", "Customers", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(CateringApp.Customer), "Orders", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(CateringApp.Order), true)]
 [assembly: EdmRelationshipAttribute("LocalDBModel", "FK_OrderItemGroupOrderItem", "OrderItemGroups", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(CateringApp.OrderItemGroup), "OrderItems", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(CateringApp.OrderItem), true)]
 [assembly: EdmRelationshipAttribute("LocalDBModel", "FK_OrderOrderItemGroup", "Orders", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(CateringApp.Order), "OrderItemGroups", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(CateringApp.OrderItemGroup), true)]
+[assembly: EdmRelationshipAttribute("LocalDBModel", "OrderBill", "Order", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(CateringApp.Order), "Bill", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(CateringApp.Bill), true)]
+[assembly: EdmRelationshipAttribute("LocalDBModel", "OrderItemBillLine", "OrderItem", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(CateringApp.OrderItem), "BillLine", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(CateringApp.BillLine), true)]
 
 #endregion
 
@@ -269,10 +269,12 @@ namespace CateringApp
         /// Create a new Bill object.
         /// </summary>
         /// <param name="id">Initial value of the Id property.</param>
-        public static Bill CreateBill(global::System.Int32 id)
+        /// <param name="orderId">Initial value of the OrderId property.</param>
+        public static Bill CreateBill(global::System.Int32 id, global::System.Int32 orderId)
         {
             Bill bill = new Bill();
             bill.Id = id;
+            bill.OrderId = orderId;
             return bill;
         }
 
@@ -305,6 +307,54 @@ namespace CateringApp
         private global::System.Int32 _Id;
         partial void OnIdChanging(global::System.Int32 value);
         partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> Date
+        {
+            get
+            {
+                return _Date;
+            }
+            set
+            {
+                OnDateChanging(value);
+                ReportPropertyChanging("Date");
+                _Date = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Date");
+                OnDateChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _Date;
+        partial void OnDateChanging(Nullable<global::System.DateTime> value);
+        partial void OnDateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 OrderId
+        {
+            get
+            {
+                return _OrderId;
+            }
+            set
+            {
+                OnOrderIdChanging(value);
+                ReportPropertyChanging("OrderId");
+                _OrderId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("OrderId");
+                OnOrderIdChanged();
+            }
+        }
+        private global::System.Int32 _OrderId;
+        partial void OnOrderIdChanging(global::System.Int32 value);
+        partial void OnOrderIdChanged();
 
         #endregion
     
@@ -360,16 +410,16 @@ namespace CateringApp
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("LocalDBModel", "FK_OrderBill", "Orders")]
-        public Order Orders
+        [EdmRelationshipNavigationPropertyAttribute("LocalDBModel", "OrderBill", "Order")]
+        public Order Order
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Order>("LocalDBModel.FK_OrderBill", "Orders").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Order>("LocalDBModel.OrderBill", "Order").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Order>("LocalDBModel.FK_OrderBill", "Orders").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Order>("LocalDBModel.OrderBill", "Order").Value = value;
             }
         }
         /// <summary>
@@ -377,17 +427,17 @@ namespace CateringApp
         /// </summary>
         [BrowsableAttribute(false)]
         [DataMemberAttribute()]
-        public EntityReference<Order> OrdersReference
+        public EntityReference<Order> OrderReference
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Order>("LocalDBModel.FK_OrderBill", "Orders");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Order>("LocalDBModel.OrderBill", "Order");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Order>("LocalDBModel.FK_OrderBill", "Orders", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Order>("LocalDBModel.OrderBill", "Order", value);
                 }
             }
         }
@@ -411,12 +461,14 @@ namespace CateringApp
         /// <param name="id">Initial value of the Id property.</param>
         /// <param name="amount">Initial value of the Amount property.</param>
         /// <param name="billId">Initial value of the BillId property.</param>
-        public static BillLine CreateBillLine(global::System.Int32 id, global::System.Double amount, global::System.Int32 billId)
+        /// <param name="orderItemId">Initial value of the OrderItemId property.</param>
+        public static BillLine CreateBillLine(global::System.Int32 id, global::System.Double amount, global::System.Int32 billId, global::System.Int32 orderItemId)
         {
             BillLine billLine = new BillLine();
             billLine.Id = id;
             billLine.Amount = amount;
             billLine.BillId = billId;
+            billLine.OrderItemId = orderItemId;
             return billLine;
         }
 
@@ -497,6 +549,30 @@ namespace CateringApp
         private global::System.Int32 _BillId;
         partial void OnBillIdChanging(global::System.Int32 value);
         partial void OnBillIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 OrderItemId
+        {
+            get
+            {
+                return _OrderItemId;
+            }
+            set
+            {
+                OnOrderItemIdChanging(value);
+                ReportPropertyChanging("OrderItemId");
+                _OrderItemId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("OrderItemId");
+                OnOrderItemIdChanged();
+            }
+        }
+        private global::System.Int32 _OrderItemId;
+        partial void OnOrderItemIdChanging(global::System.Int32 value);
+        partial void OnOrderItemIdChanged();
 
         #endregion
     
@@ -509,7 +585,7 @@ namespace CateringApp
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("LocalDBModel", "FK_BillBillLine", "Bills")]
-        public Bill Bills
+        public Bill Bill
         {
             get
             {
@@ -525,7 +601,7 @@ namespace CateringApp
         /// </summary>
         [BrowsableAttribute(false)]
         [DataMemberAttribute()]
-        public EntityReference<Bill> BillsReference
+        public EntityReference<Bill> BillReference
         {
             get
             {
@@ -546,16 +622,16 @@ namespace CateringApp
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("LocalDBModel", "FK_BillLineOrderItem", "OrderItems")]
-        public OrderItem OrderItems
+        [EdmRelationshipNavigationPropertyAttribute("LocalDBModel", "OrderItemBillLine", "OrderItem")]
+        public OrderItem OrderItem
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<OrderItem>("LocalDBModel.FK_BillLineOrderItem", "OrderItems").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<OrderItem>("LocalDBModel.OrderItemBillLine", "OrderItem").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<OrderItem>("LocalDBModel.FK_BillLineOrderItem", "OrderItems").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<OrderItem>("LocalDBModel.OrderItemBillLine", "OrderItem").Value = value;
             }
         }
         /// <summary>
@@ -563,17 +639,17 @@ namespace CateringApp
         /// </summary>
         [BrowsableAttribute(false)]
         [DataMemberAttribute()]
-        public EntityReference<OrderItem> OrderItemsReference
+        public EntityReference<OrderItem> OrderItemReference
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<OrderItem>("LocalDBModel.FK_BillLineOrderItem", "OrderItems");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<OrderItem>("LocalDBModel.OrderItemBillLine", "OrderItem");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<OrderItem>("LocalDBModel.FK_BillLineOrderItem", "OrderItems", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<OrderItem>("LocalDBModel.OrderItemBillLine", "OrderItem", value);
                 }
             }
         }
@@ -878,44 +954,6 @@ namespace CateringApp
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("LocalDBModel", "FK_OrderBill", "Bills")]
-        public Bill Bills
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Bill>("LocalDBModel.FK_OrderBill", "Bills").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Bill>("LocalDBModel.FK_OrderBill", "Bills").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<Bill> BillsReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Bill>("LocalDBModel.FK_OrderBill", "Bills");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Bill>("LocalDBModel.FK_OrderBill", "Bills", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("LocalDBModel", "FK_CustomerOrder", "Customers")]
         public Customer Customer
         {
@@ -966,6 +1004,28 @@ namespace CateringApp
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<OrderItemGroup>("LocalDBModel.FK_OrderOrderItemGroup", "OrderItemGroups", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("LocalDBModel", "OrderBill", "Bill")]
+        public EntityCollection<Bill> Bills
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Bill>("LocalDBModel.OrderBill", "Bill");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Bill>("LocalDBModel.OrderBill", "Bill", value);
                 }
             }
         }
@@ -1086,46 +1146,8 @@ namespace CateringApp
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("LocalDBModel", "FK_BillLineOrderItem", "BillLines")]
-        public BillLine BillLines
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BillLine>("LocalDBModel.FK_BillLineOrderItem", "BillLines").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BillLine>("LocalDBModel.FK_BillLineOrderItem", "BillLines").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<BillLine> BillLinesReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<BillLine>("LocalDBModel.FK_BillLineOrderItem", "BillLines");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<BillLine>("LocalDBModel.FK_BillLineOrderItem", "BillLines", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("LocalDBModel", "FK_OrderItemGroupOrderItem", "OrderItemGroups")]
-        public OrderItemGroup OrderItemGroups
+        public OrderItemGroup OrderItemGroup
         {
             get
             {
@@ -1141,7 +1163,7 @@ namespace CateringApp
         /// </summary>
         [BrowsableAttribute(false)]
         [DataMemberAttribute()]
-        public EntityReference<OrderItemGroup> OrderItemGroupsReference
+        public EntityReference<OrderItemGroup> OrderItemGroupReference
         {
             get
             {
@@ -1152,6 +1174,28 @@ namespace CateringApp
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<OrderItemGroup>("LocalDBModel.FK_OrderItemGroupOrderItem", "OrderItemGroups", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("LocalDBModel", "OrderItemBillLine", "BillLine")]
+        public EntityCollection<BillLine> BillLines
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<BillLine>("LocalDBModel.OrderItemBillLine", "BillLine");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<BillLine>("LocalDBModel.OrderItemBillLine", "BillLine", value);
                 }
             }
         }
@@ -1321,7 +1365,7 @@ namespace CateringApp
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("LocalDBModel", "FK_OrderOrderItemGroup", "Orders")]
-        public Order Orders
+        public Order Order
         {
             get
             {
@@ -1337,7 +1381,7 @@ namespace CateringApp
         /// </summary>
         [BrowsableAttribute(false)]
         [DataMemberAttribute()]
-        public EntityReference<Order> OrdersReference
+        public EntityReference<Order> OrderReference
         {
             get
             {
@@ -1457,6 +1501,30 @@ namespace CateringApp
         private global::System.Int32 _BillId;
         partial void OnBillIdChanging(global::System.Int32 value);
         partial void OnBillIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> Date
+        {
+            get
+            {
+                return _Date;
+            }
+            set
+            {
+                OnDateChanging(value);
+                ReportPropertyChanging("Date");
+                _Date = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Date");
+                OnDateChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _Date;
+        partial void OnDateChanging(Nullable<global::System.DateTime> value);
+        partial void OnDateChanged();
 
         #endregion
     
@@ -1469,7 +1537,7 @@ namespace CateringApp
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("LocalDBModel", "FK_BillReceipt", "Bills")]
-        public Bill Bills
+        public Bill Bill
         {
             get
             {
@@ -1485,7 +1553,7 @@ namespace CateringApp
         /// </summary>
         [BrowsableAttribute(false)]
         [DataMemberAttribute()]
-        public EntityReference<Bill> BillsReference
+        public EntityReference<Bill> BillReference
         {
             get
             {

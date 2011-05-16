@@ -39,22 +39,28 @@
             this.cmbCustomerName = new System.Windows.Forms.ComboBox();
             this.txtVenue = new System.Windows.Forms.TextBox();
             this.txtDate = new System.Windows.Forms.DateTimePicker();
+            this.lblNote = new System.Windows.Forms.Label();
+            this.txtNote = new System.Windows.Forms.TextBox();
             this.grdGroups = new System.Windows.Forms.DataGridView();
             this.grdItems = new System.Windows.Forms.DataGridView();
             this.grdOrders = new System.Windows.Forms.DataGridView();
             this.btnSave = new System.Windows.Forms.Button();
             this.orderPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.itemsPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.itemsInnerPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.lblGroups = new System.Windows.Forms.Label();
+            this.itemsInnerPanel2 = new System.Windows.Forms.FlowLayoutPanel();
+            this.lblItems = new System.Windows.Forms.Label();
             this.btnPanel = new System.Windows.Forms.Panel();
             this.btnNew = new System.Windows.Forms.Button();
-            this.lblNote = new System.Windows.Forms.Label();
-            this.txtNote = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdGroups)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdItems)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdOrders)).BeginInit();
             this.orderPanel.SuspendLayout();
             this.itemsPanel.SuspendLayout();
+            this.itemsInnerPanel1.SuspendLayout();
+            this.itemsInnerPanel2.SuspendLayout();
             this.btnPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -78,14 +84,14 @@
             this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 7;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(531, 132);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(531, 138);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // lblOrderID
@@ -108,7 +114,7 @@
             // lblCustomerName
             // 
             this.lblCustomerName.AutoSize = true;
-            this.lblCustomerName.Location = new System.Drawing.Point(3, 16);
+            this.lblCustomerName.Location = new System.Drawing.Point(3, 20);
             this.lblCustomerName.Name = "lblCustomerName";
             this.lblCustomerName.Size = new System.Drawing.Size(82, 13);
             this.lblCustomerName.TabIndex = 1;
@@ -117,7 +123,7 @@
             // lblContactNo
             // 
             this.lblContactNo.AutoSize = true;
-            this.lblContactNo.Location = new System.Drawing.Point(3, 32);
+            this.lblContactNo.Location = new System.Drawing.Point(3, 40);
             this.lblContactNo.Name = "lblContactNo";
             this.lblContactNo.Size = new System.Drawing.Size(61, 13);
             this.lblContactNo.TabIndex = 2;
@@ -126,7 +132,7 @@
             // lblVenue
             // 
             this.lblVenue.AutoSize = true;
-            this.lblVenue.Location = new System.Drawing.Point(3, 52);
+            this.lblVenue.Location = new System.Drawing.Point(3, 60);
             this.lblVenue.Name = "lblVenue";
             this.lblVenue.Size = new System.Drawing.Size(38, 13);
             this.lblVenue.TabIndex = 3;
@@ -135,7 +141,7 @@
             // lblDate
             // 
             this.lblDate.AutoSize = true;
-            this.lblDate.Location = new System.Drawing.Point(3, 72);
+            this.lblDate.Location = new System.Drawing.Point(3, 80);
             this.lblDate.Name = "lblDate";
             this.lblDate.Size = new System.Drawing.Size(30, 13);
             this.lblDate.TabIndex = 4;
@@ -143,15 +149,17 @@
             // 
             // txtContactNo
             // 
-            this.txtContactNo.Location = new System.Drawing.Point(268, 35);
+            this.txtContactNo.Location = new System.Drawing.Point(268, 43);
             this.txtContactNo.Name = "txtContactNo";
             this.txtContactNo.Size = new System.Drawing.Size(164, 20);
             this.txtContactNo.TabIndex = 2;
             // 
             // cmbCustomerName
             // 
+            this.cmbCustomerName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.cmbCustomerName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cmbCustomerName.FormattingEnabled = true;
-            this.cmbCustomerName.Location = new System.Drawing.Point(268, 19);
+            this.cmbCustomerName.Location = new System.Drawing.Point(268, 23);
             this.cmbCustomerName.Name = "cmbCustomerName";
             this.cmbCustomerName.Size = new System.Drawing.Size(164, 21);
             this.cmbCustomerName.TabIndex = 1;
@@ -160,39 +168,57 @@
             // 
             // txtVenue
             // 
-            this.txtVenue.Location = new System.Drawing.Point(268, 55);
+            this.txtVenue.Location = new System.Drawing.Point(268, 63);
             this.txtVenue.Name = "txtVenue";
             this.txtVenue.Size = new System.Drawing.Size(164, 20);
             this.txtVenue.TabIndex = 3;
             // 
             // txtDate
             // 
-            this.txtDate.Location = new System.Drawing.Point(268, 75);
+            this.txtDate.Location = new System.Drawing.Point(268, 83);
             this.txtDate.Name = "txtDate";
             this.txtDate.Size = new System.Drawing.Size(200, 20);
             this.txtDate.TabIndex = 4;
             // 
+            // lblNote
+            // 
+            this.lblNote.AutoSize = true;
+            this.lblNote.Location = new System.Drawing.Point(3, 100);
+            this.lblNote.Name = "lblNote";
+            this.lblNote.Size = new System.Drawing.Size(30, 13);
+            this.lblNote.TabIndex = 6;
+            this.lblNote.Text = "Note";
+            // 
+            // txtNote
+            // 
+            this.txtNote.Location = new System.Drawing.Point(268, 103);
+            this.txtNote.Multiline = true;
+            this.txtNote.Name = "txtNote";
+            this.tableLayoutPanel1.SetRowSpan(this.txtNote, 2);
+            this.txtNote.Size = new System.Drawing.Size(164, 34);
+            this.txtNote.TabIndex = 5;
+            // 
             // grdGroups
             // 
             this.grdGroups.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grdGroups.Location = new System.Drawing.Point(3, 3);
+            this.grdGroups.Location = new System.Drawing.Point(3, 16);
             this.grdGroups.Name = "grdGroups";
-            this.grdGroups.Size = new System.Drawing.Size(206, 116);
+            this.grdGroups.Size = new System.Drawing.Size(206, 106);
             this.grdGroups.TabIndex = 6;
             this.grdGroups.SelectionChanged += new System.EventHandler(this.grdGroups_SelectionChanged);
             // 
             // grdItems
             // 
             this.grdItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grdItems.Location = new System.Drawing.Point(215, 3);
+            this.grdItems.Location = new System.Drawing.Point(3, 16);
             this.grdItems.Name = "grdItems";
-            this.grdItems.Size = new System.Drawing.Size(206, 116);
+            this.grdItems.Size = new System.Drawing.Size(206, 106);
             this.grdItems.TabIndex = 7;
             // 
             // grdOrders
             // 
             this.grdOrders.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grdOrders.Location = new System.Drawing.Point(3, 312);
+            this.grdOrders.Location = new System.Drawing.Point(3, 321);
             this.grdOrders.Name = "grdOrders";
             this.grdOrders.Size = new System.Drawing.Size(448, 150);
             this.grdOrders.TabIndex = 10;
@@ -222,18 +248,56 @@
             // 
             // itemsPanel
             // 
-            this.itemsPanel.Controls.Add(this.grdGroups);
-            this.itemsPanel.Controls.Add(this.grdItems);
-            this.itemsPanel.Location = new System.Drawing.Point(3, 141);
+            this.itemsPanel.Controls.Add(this.itemsInnerPanel1);
+            this.itemsPanel.Controls.Add(this.itemsInnerPanel2);
+            this.itemsPanel.Location = new System.Drawing.Point(3, 147);
             this.itemsPanel.Name = "itemsPanel";
-            this.itemsPanel.Size = new System.Drawing.Size(531, 129);
+            this.itemsPanel.Size = new System.Drawing.Size(531, 132);
             this.itemsPanel.TabIndex = 5;
+            // 
+            // itemsInnerPanel1
+            // 
+            this.itemsInnerPanel1.Controls.Add(this.lblGroups);
+            this.itemsInnerPanel1.Controls.Add(this.grdGroups);
+            this.itemsInnerPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.itemsInnerPanel1.Location = new System.Drawing.Point(3, 3);
+            this.itemsInnerPanel1.Name = "itemsInnerPanel1";
+            this.itemsInnerPanel1.Size = new System.Drawing.Size(216, 139);
+            this.itemsInnerPanel1.TabIndex = 9;
+            // 
+            // lblGroups
+            // 
+            this.lblGroups.AutoSize = true;
+            this.lblGroups.Location = new System.Drawing.Point(3, 0);
+            this.lblGroups.Name = "lblGroups";
+            this.lblGroups.Size = new System.Drawing.Size(41, 13);
+            this.lblGroups.TabIndex = 7;
+            this.lblGroups.Text = "Groups";
+            // 
+            // itemsInnerPanel2
+            // 
+            this.itemsInnerPanel2.Controls.Add(this.lblItems);
+            this.itemsInnerPanel2.Controls.Add(this.grdItems);
+            this.itemsInnerPanel2.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.itemsInnerPanel2.Location = new System.Drawing.Point(225, 3);
+            this.itemsInnerPanel2.Name = "itemsInnerPanel2";
+            this.itemsInnerPanel2.Size = new System.Drawing.Size(226, 139);
+            this.itemsInnerPanel2.TabIndex = 8;
+            // 
+            // lblItems
+            // 
+            this.lblItems.AutoSize = true;
+            this.lblItems.Location = new System.Drawing.Point(3, 0);
+            this.lblItems.Name = "lblItems";
+            this.lblItems.Size = new System.Drawing.Size(32, 13);
+            this.lblItems.TabIndex = 8;
+            this.lblItems.Text = "Items";
             // 
             // btnPanel
             // 
             this.btnPanel.Controls.Add(this.btnNew);
             this.btnPanel.Controls.Add(this.btnSave);
-            this.btnPanel.Location = new System.Drawing.Point(3, 276);
+            this.btnPanel.Location = new System.Drawing.Point(3, 285);
             this.btnPanel.Name = "btnPanel";
             this.btnPanel.Size = new System.Drawing.Size(531, 30);
             this.btnPanel.TabIndex = 6;
@@ -247,24 +311,6 @@
             this.btnNew.Text = "&New";
             this.btnNew.UseVisualStyleBackColor = true;
             this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
-            // 
-            // lblNote
-            // 
-            this.lblNote.AutoSize = true;
-            this.lblNote.Location = new System.Drawing.Point(3, 92);
-            this.lblNote.Name = "lblNote";
-            this.lblNote.Size = new System.Drawing.Size(30, 13);
-            this.lblNote.TabIndex = 6;
-            this.lblNote.Text = "Note";
-            // 
-            // txtNote
-            // 
-            this.txtNote.Location = new System.Drawing.Point(268, 95);
-            this.txtNote.Multiline = true;
-            this.txtNote.Name = "txtNote";
-            this.tableLayoutPanel1.SetRowSpan(this.txtNote, 2);
-            this.txtNote.Size = new System.Drawing.Size(164, 34);
-            this.txtNote.TabIndex = 5;
             // 
             // OrderScreen
             // 
@@ -281,6 +327,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.grdOrders)).EndInit();
             this.orderPanel.ResumeLayout(false);
             this.itemsPanel.ResumeLayout(false);
+            this.itemsInnerPanel1.ResumeLayout(false);
+            this.itemsInnerPanel1.PerformLayout();
+            this.itemsInnerPanel2.ResumeLayout(false);
+            this.itemsInnerPanel2.PerformLayout();
             this.btnPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -309,5 +359,9 @@
         protected internal System.Windows.Forms.Button btnNew;
         private System.Windows.Forms.Label lblNote;
         private System.Windows.Forms.TextBox txtNote;
+        private System.Windows.Forms.FlowLayoutPanel itemsInnerPanel1;
+        private System.Windows.Forms.FlowLayoutPanel itemsInnerPanel2;
+        private System.Windows.Forms.Label lblGroups;
+        private System.Windows.Forms.Label lblItems;
     }
 }

@@ -3,448 +3,428 @@
 <edmx:StorageModels>
 <Schema Namespace="LocalDBModel.Store" Alias="Self" Provider="System.Data.SqlServerCe.4.0" ProviderManifestToken="4.0" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
   <EntityContainer Name="LocalDBModelStoreContainer">
-    <EntitySet Name="BillLines" EntityType="LocalDBModel.Store.BillLines" store:Type="Tables" />
-    <EntitySet Name="Bills" EntityType="LocalDBModel.Store.Bills" store:Type="Tables" />
-    <EntitySet Name="Customers" EntityType="LocalDBModel.Store.Customers" store:Type="Tables" />
-    <EntitySet Name="OrderItemGroups" EntityType="LocalDBModel.Store.OrderItemGroups" store:Type="Tables" />
-    <EntitySet Name="OrderItems" EntityType="LocalDBModel.Store.OrderItems" store:Type="Tables" />
-    <EntitySet Name="Orders" EntityType="LocalDBModel.Store.Orders" store:Type="Tables" />
-    <EntitySet Name="Receipts" EntityType="LocalDBModel.Store.Receipts" store:Type="Tables" />
-    <AssociationSet Name="FK_BillBillLine" Association="LocalDBModel.Store.FK_BillBillLine">
-      <End Role="Bills" EntitySet="Bills" />
-      <End Role="BillLines" EntitySet="BillLines" />
-    </AssociationSet>
-    <AssociationSet Name="FK_BillLineOrderItem" Association="LocalDBModel.Store.FK_BillLineOrderItem">
-      <End Role="OrderItems" EntitySet="OrderItems" />
-      <End Role="BillLines" EntitySet="BillLines" />
-    </AssociationSet>
-    <AssociationSet Name="FK_BillReceipt" Association="LocalDBModel.Store.FK_BillReceipt">
-      <End Role="Bills" EntitySet="Bills" />
-      <End Role="Receipts" EntitySet="Receipts" />
-    </AssociationSet>
-    <AssociationSet Name="FK_CustomerOrder" Association="LocalDBModel.Store.FK_CustomerOrder">
-      <End Role="Customers" EntitySet="Customers" />
-      <End Role="Orders" EntitySet="Orders" />
-    </AssociationSet>
-    <AssociationSet Name="FK_OrderBill" Association="LocalDBModel.Store.FK_OrderBill">
-      <End Role="Orders" EntitySet="Orders" />
-      <End Role="Bills" EntitySet="Bills" />
-    </AssociationSet>
-    <AssociationSet Name="FK_OrderItemGroupOrderItem" Association="LocalDBModel.Store.FK_OrderItemGroupOrderItem">
-      <End Role="OrderItemGroups" EntitySet="OrderItemGroups" />
-      <End Role="OrderItems" EntitySet="OrderItems" />
-    </AssociationSet>
-    <AssociationSet Name="FK_OrderOrderItemGroup" Association="LocalDBModel.Store.FK_OrderOrderItemGroup">
-      <End Role="Orders" EntitySet="Orders" />
-      <End Role="OrderItemGroups" EntitySet="OrderItemGroups" />
-    </AssociationSet>
+	<EntitySet Name="BillLines" EntityType="LocalDBModel.Store.BillLines" store:Type="Tables" />
+	<EntitySet Name="Bills" EntityType="LocalDBModel.Store.Bills" store:Type="Tables" />
+	<EntitySet Name="Customers" EntityType="LocalDBModel.Store.Customers" store:Type="Tables" />
+	<EntitySet Name="OrderItemGroups" EntityType="LocalDBModel.Store.OrderItemGroups" store:Type="Tables" />
+	<EntitySet Name="OrderItems" EntityType="LocalDBModel.Store.OrderItems" store:Type="Tables" />
+	<EntitySet Name="Orders" EntityType="LocalDBModel.Store.Orders" store:Type="Tables" />
+	<EntitySet Name="Receipts" EntityType="LocalDBModel.Store.Receipts" store:Type="Tables" />
+	<AssociationSet Name="FK_BillBillLine" Association="LocalDBModel.Store.FK_BillBillLine">
+	  <End Role="Bills" EntitySet="Bills" />
+	  <End Role="BillLines" EntitySet="BillLines" />
+	</AssociationSet>
+	<AssociationSet Name="FK_BillReceipt" Association="LocalDBModel.Store.FK_BillReceipt">
+	  <End Role="Bills" EntitySet="Bills" />
+	  <End Role="Receipts" EntitySet="Receipts" />
+	</AssociationSet>
+	<AssociationSet Name="FK_CustomerOrder" Association="LocalDBModel.Store.FK_CustomerOrder">
+	  <End Role="Customers" EntitySet="Customers" />
+	  <End Role="Orders" EntitySet="Orders" />
+	</AssociationSet>
+	<AssociationSet Name="FK_OrderItemGroupOrderItem" Association="LocalDBModel.Store.FK_OrderItemGroupOrderItem">
+	  <End Role="OrderItemGroups" EntitySet="OrderItemGroups" />
+	  <End Role="OrderItems" EntitySet="OrderItems" />
+	</AssociationSet>
+	<AssociationSet Name="FK_OrderOrderItemGroup" Association="LocalDBModel.Store.FK_OrderOrderItemGroup">
+	  <End Role="Orders" EntitySet="Orders" />
+	  <End Role="OrderItemGroups" EntitySet="OrderItemGroups" />
+	</AssociationSet>
   </EntityContainer>
   <EntityType Name="BillLines">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="Amount" Type="float" Nullable="false" />
-    <Property Name="BillId" Type="int" Nullable="false" />
+	<Key>
+	  <PropertyRef Name="Id" />
+	</Key>
+	<Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+	<Property Name="Amount" Type="float" Nullable="false" />
+	<Property Name="BillId" Type="int" Nullable="false" />
+	<Property Name="OrderItemId" Type="int" />
   </EntityType>
   <EntityType Name="Bills">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+	<Key>
+	  <PropertyRef Name="Id" />
+	</Key>
+	<Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+	<Property Name="DATE" Type="datetime" />
+	<Property Name="OrderId" Type="int" />
   </EntityType>
   <EntityType Name="Customers">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="Name" Type="nvarchar" Nullable="false" />
-    <Property Name="ContactNo" Type="nvarchar" Nullable="false" />
+	<Key>
+	  <PropertyRef Name="Id" />
+	</Key>
+	<Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+	<Property Name="Name" Type="nvarchar" Nullable="false" />
+	<Property Name="ContactNo" Type="nvarchar" Nullable="false" />
   </EntityType>
   <EntityType Name="OrderItemGroups">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="OrderId" Type="int" Nullable="false" />
-    <Property Name="Quantity" Type="float" Nullable="false" />
-    <Property Name="Name" Type="nvarchar" Nullable="false" />
+	<Key>
+	  <PropertyRef Name="Id" />
+	</Key>
+	<Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+	<Property Name="OrderId" Type="int" Nullable="false" />
+	<Property Name="Quantity" Type="float" Nullable="false" />
+	<Property Name="Name" Type="nvarchar" Nullable="false" />
   </EntityType>
   <EntityType Name="OrderItems">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="OrderItemGroupId" Type="int" Nullable="false" />
-    <Property Name="Name" Type="nvarchar" Nullable="false" />
+	<Key>
+	  <PropertyRef Name="Id" />
+	</Key>
+	<Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+	<Property Name="OrderItemGroupId" Type="int" Nullable="false" />
+	<Property Name="Name" Type="nvarchar" Nullable="false" />
   </EntityType>
   <EntityType Name="Orders">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="Venue" Type="nvarchar" Nullable="false" />
-    <Property Name="Date" Type="datetime" Nullable="false" />
-    <Property Name="CustomerId" Type="int" Nullable="false" />
-    <Property Name="Note" Type="nvarchar" Nullable="false" />
+	<Key>
+	  <PropertyRef Name="Id" />
+	</Key>
+	<Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+	<Property Name="Venue" Type="nvarchar" Nullable="false" />
+	<Property Name="Date" Type="datetime" Nullable="false" />
+	<Property Name="CustomerId" Type="int" Nullable="false" />
+	<Property Name="Note" Type="nvarchar" Nullable="false" />
   </EntityType>
   <EntityType Name="Receipts">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="Amount" Type="float" Nullable="false" />
-    <Property Name="BillId" Type="int" Nullable="false" />
+	<Key>
+	  <PropertyRef Name="Id" />
+	</Key>
+	<Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+	<Property Name="Amount" Type="float" Nullable="false" />
+	<Property Name="BillId" Type="int" Nullable="false" />
+	<Property Name="DATE" Type="datetime" />
   </EntityType>
   <Association Name="FK_BillBillLine">
-    <End Role="Bills" Type="LocalDBModel.Store.Bills" Multiplicity="1" />
-    <End Role="BillLines" Type="LocalDBModel.Store.BillLines" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Bills">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="BillLines">
-        <PropertyRef Name="BillId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_BillLineOrderItem">
-    <End Role="OrderItems" Type="LocalDBModel.Store.OrderItems" Multiplicity="1" />
-    <End Role="BillLines" Type="LocalDBModel.Store.BillLines" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="OrderItems">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="BillLines">
-        <PropertyRef Name="Id" />
-      </Dependent>
-    </ReferentialConstraint>
+	<End Role="Bills" Type="LocalDBModel.Store.Bills" Multiplicity="1" />
+	<End Role="BillLines" Type="LocalDBModel.Store.BillLines" Multiplicity="*" />
+	<ReferentialConstraint>
+	  <Principal Role="Bills">
+		<PropertyRef Name="Id" />
+	  </Principal>
+	  <Dependent Role="BillLines">
+		<PropertyRef Name="BillId" />
+	  </Dependent>
+	</ReferentialConstraint>
   </Association>
   <Association Name="FK_BillReceipt">
-    <End Role="Bills" Type="LocalDBModel.Store.Bills" Multiplicity="1" />
-    <End Role="Receipts" Type="LocalDBModel.Store.Receipts" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Bills">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Receipts">
-        <PropertyRef Name="BillId" />
-      </Dependent>
-    </ReferentialConstraint>
+	<End Role="Bills" Type="LocalDBModel.Store.Bills" Multiplicity="1" />
+	<End Role="Receipts" Type="LocalDBModel.Store.Receipts" Multiplicity="*" />
+	<ReferentialConstraint>
+	  <Principal Role="Bills">
+		<PropertyRef Name="Id" />
+	  </Principal>
+	  <Dependent Role="Receipts">
+		<PropertyRef Name="BillId" />
+	  </Dependent>
+	</ReferentialConstraint>
   </Association>
   <Association Name="FK_CustomerOrder">
-    <End Role="Customers" Type="LocalDBModel.Store.Customers" Multiplicity="1" />
-    <End Role="Orders" Type="LocalDBModel.Store.Orders" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Customers">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Orders">
-        <PropertyRef Name="CustomerId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_OrderBill">
-    <End Role="Orders" Type="LocalDBModel.Store.Orders" Multiplicity="1" />
-    <End Role="Bills" Type="LocalDBModel.Store.Bills" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="Orders">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Bills">
-        <PropertyRef Name="Id" />
-      </Dependent>
-    </ReferentialConstraint>
+	<End Role="Customers" Type="LocalDBModel.Store.Customers" Multiplicity="1" />
+	<End Role="Orders" Type="LocalDBModel.Store.Orders" Multiplicity="*" />
+	<ReferentialConstraint>
+	  <Principal Role="Customers">
+		<PropertyRef Name="Id" />
+	  </Principal>
+	  <Dependent Role="Orders">
+		<PropertyRef Name="CustomerId" />
+	  </Dependent>
+	</ReferentialConstraint>
   </Association>
   <Association Name="FK_OrderItemGroupOrderItem">
-    <End Role="OrderItemGroups" Type="LocalDBModel.Store.OrderItemGroups" Multiplicity="1" />
-    <End Role="OrderItems" Type="LocalDBModel.Store.OrderItems" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="OrderItemGroups">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="OrderItems">
-        <PropertyRef Name="OrderItemGroupId" />
-      </Dependent>
-    </ReferentialConstraint>
+	<End Role="OrderItemGroups" Type="LocalDBModel.Store.OrderItemGroups" Multiplicity="1" />
+	<End Role="OrderItems" Type="LocalDBModel.Store.OrderItems" Multiplicity="*" />
+	<ReferentialConstraint>
+	  <Principal Role="OrderItemGroups">
+		<PropertyRef Name="Id" />
+	  </Principal>
+	  <Dependent Role="OrderItems">
+		<PropertyRef Name="OrderItemGroupId" />
+	  </Dependent>
+	</ReferentialConstraint>
   </Association>
   <Association Name="FK_OrderOrderItemGroup">
-    <End Role="Orders" Type="LocalDBModel.Store.Orders" Multiplicity="1" />
-    <End Role="OrderItemGroups" Type="LocalDBModel.Store.OrderItemGroups" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Orders">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="OrderItemGroups">
-        <PropertyRef Name="OrderId" />
-      </Dependent>
-    </ReferentialConstraint>
+	<End Role="Orders" Type="LocalDBModel.Store.Orders" Multiplicity="1" />
+	<End Role="OrderItemGroups" Type="LocalDBModel.Store.OrderItemGroups" Multiplicity="*" />
+	<ReferentialConstraint>
+	  <Principal Role="Orders">
+		<PropertyRef Name="Id" />
+	  </Principal>
+	  <Dependent Role="OrderItemGroups">
+		<PropertyRef Name="OrderId" />
+	  </Dependent>
+	</ReferentialConstraint>
   </Association>
 </Schema>
 </edmx:StorageModels>
 <edmx:ConceptualModels>
 <Schema Namespace="LocalDBModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
   <EntityContainer Name="LocalDBEntities" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="BillLines" EntityType="LocalDBModel.BillLine" />
-    <EntitySet Name="Bills" EntityType="LocalDBModel.Bill" />
-    <EntitySet Name="Customers" EntityType="LocalDBModel.Customer" />
-    <EntitySet Name="OrderItemGroups" EntityType="LocalDBModel.OrderItemGroup" />
-    <EntitySet Name="OrderItems" EntityType="LocalDBModel.OrderItem" />
-    <EntitySet Name="Orders" EntityType="LocalDBModel.Order" />
-    <EntitySet Name="Receipts" EntityType="LocalDBModel.Receipt" />
-    <AssociationSet Name="FK_BillBillLine" Association="LocalDBModel.FK_BillBillLine">
-      <End Role="Bills" EntitySet="Bills" />
-      <End Role="BillLines" EntitySet="BillLines" />
-    </AssociationSet>
-    <AssociationSet Name="FK_BillLineOrderItem" Association="LocalDBModel.FK_BillLineOrderItem">
-      <End Role="OrderItems" EntitySet="OrderItems" />
-      <End Role="BillLines" EntitySet="BillLines" />
-    </AssociationSet>
-    <AssociationSet Name="FK_BillReceipt" Association="LocalDBModel.FK_BillReceipt">
-      <End Role="Bills" EntitySet="Bills" />
-      <End Role="Receipts" EntitySet="Receipts" />
-    </AssociationSet>
-    <AssociationSet Name="FK_OrderBill" Association="LocalDBModel.FK_OrderBill">
-      <End Role="Orders" EntitySet="Orders" />
-      <End Role="Bills" EntitySet="Bills" />
-    </AssociationSet>
-    <AssociationSet Name="FK_CustomerOrder" Association="LocalDBModel.FK_CustomerOrder">
-      <End Role="Customers" EntitySet="Customers" />
-      <End Role="Orders" EntitySet="Orders" />
-    </AssociationSet>
-    <AssociationSet Name="FK_OrderItemGroupOrderItem" Association="LocalDBModel.FK_OrderItemGroupOrderItem">
-      <End Role="OrderItemGroups" EntitySet="OrderItemGroups" />
-      <End Role="OrderItems" EntitySet="OrderItems" />
-    </AssociationSet>
-    <AssociationSet Name="FK_OrderOrderItemGroup" Association="LocalDBModel.FK_OrderOrderItemGroup">
-      <End Role="Orders" EntitySet="Orders" />
-      <End Role="OrderItemGroups" EntitySet="OrderItemGroups" />
-    </AssociationSet>
+	<EntitySet Name="BillLines" EntityType="LocalDBModel.BillLine" />
+	<EntitySet Name="Bills" EntityType="LocalDBModel.Bill" />
+	<EntitySet Name="Customers" EntityType="LocalDBModel.Customer" />
+	<EntitySet Name="OrderItemGroups" EntityType="LocalDBModel.OrderItemGroup" />
+	<EntitySet Name="OrderItems" EntityType="LocalDBModel.OrderItem" />
+	<EntitySet Name="Orders" EntityType="LocalDBModel.Order" />
+	<EntitySet Name="Receipts" EntityType="LocalDBModel.Receipt" />
+	<AssociationSet Name="FK_BillBillLine" Association="LocalDBModel.FK_BillBillLine">
+	  <End Role="Bills" EntitySet="Bills" />
+	  <End Role="BillLines" EntitySet="BillLines" />
+	</AssociationSet>
+	<AssociationSet Name="FK_BillReceipt" Association="LocalDBModel.FK_BillReceipt">
+	  <End Role="Bills" EntitySet="Bills" />
+	  <End Role="Receipts" EntitySet="Receipts" />
+	</AssociationSet>
+	<AssociationSet Name="FK_CustomerOrder" Association="LocalDBModel.FK_CustomerOrder">
+	  <End Role="Customers" EntitySet="Customers" />
+	  <End Role="Orders" EntitySet="Orders" />
+	</AssociationSet>
+	<AssociationSet Name="FK_OrderItemGroupOrderItem" Association="LocalDBModel.FK_OrderItemGroupOrderItem">
+	  <End Role="OrderItemGroups" EntitySet="OrderItemGroups" />
+	  <End Role="OrderItems" EntitySet="OrderItems" />
+	</AssociationSet>
+	<AssociationSet Name="FK_OrderOrderItemGroup" Association="LocalDBModel.FK_OrderOrderItemGroup">
+	  <End Role="Orders" EntitySet="Orders" />
+	  <End Role="OrderItemGroups" EntitySet="OrderItemGroups" />
+	</AssociationSet>
+		  <AssociationSet Name="OrderBill" Association="LocalDBModel.OrderBill">
+			<End Role="Order" EntitySet="Orders" />
+			<End Role="Bill" EntitySet="Bills" />
+		  </AssociationSet>
+		  <AssociationSet Name="OrderItemBillLine" Association="LocalDBModel.OrderItemBillLine">
+			<End Role="OrderItem" EntitySet="OrderItems" />
+			<End Role="BillLine" EntitySet="BillLines" />
+		  </AssociationSet>
   </EntityContainer>
   <EntityType Name="BillLine">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Amount" Type="Double" Nullable="false" />
-    <Property Name="BillId" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="Bills" Relationship="LocalDBModel.FK_BillBillLine" FromRole="BillLines" ToRole="Bills" />
-    <NavigationProperty Name="OrderItems" Relationship="LocalDBModel.FK_BillLineOrderItem" FromRole="BillLines" ToRole="OrderItems" />
+	<Key>
+	  <PropertyRef Name="Id" />
+	</Key>
+	<Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="None" />
+	<Property Name="Amount" Type="Double" Nullable="false" />
+	<Property Name="BillId" Nullable="false" Type="Int32" />
+	<NavigationProperty Name="Bill" Relationship="LocalDBModel.FK_BillBillLine" FromRole="BillLines" ToRole="Bills" />
+		  <NavigationProperty Name="OrderItem" Relationship="LocalDBModel.OrderItemBillLine" FromRole="BillLine" ToRole="OrderItem" />
+		  <Property Type="Int32" Name="OrderItemId" Nullable="false" />
   </EntityType>
   <EntityType Name="Bill">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <NavigationProperty Name="BillLines" Relationship="LocalDBModel.FK_BillBillLine" FromRole="Bills" ToRole="BillLines" />
-    <NavigationProperty Name="Receipts" Relationship="LocalDBModel.FK_BillReceipt" FromRole="Bills" ToRole="Receipts" />
-    <NavigationProperty Name="Orders" Relationship="LocalDBModel.FK_OrderBill" FromRole="Bills" ToRole="Orders" />
+	<Key>
+	  <PropertyRef Name="Id" />
+	</Key>
+	<Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+	<Property Name="Date" Type="DateTime" />
+	<NavigationProperty Name="BillLines" Relationship="LocalDBModel.FK_BillBillLine" FromRole="Bills" ToRole="BillLines" />
+	<NavigationProperty Name="Receipts" Relationship="LocalDBModel.FK_BillReceipt" FromRole="Bills" ToRole="Receipts" />
+		  <NavigationProperty Name="Order" Relationship="LocalDBModel.OrderBill" FromRole="Bill" ToRole="Order" />
+		  <Property Type="Int32" Name="OrderId" Nullable="false" />
   </EntityType>
   <EntityType Name="Customer">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Name" Type="String" Nullable="false" MaxLength="4000" Unicode="true" FixedLength="false" />
-    <Property Name="ContactNo" Type="String" Nullable="false" MaxLength="4000" Unicode="true" FixedLength="false" />
-    <NavigationProperty Name="Orders" Relationship="LocalDBModel.FK_CustomerOrder" FromRole="Customers" ToRole="Orders" />
+	<Key>
+	  <PropertyRef Name="Id" />
+	</Key>
+	<Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+	<Property Name="Name" Type="String" Nullable="false" MaxLength="4000" Unicode="true" FixedLength="false" />
+	<Property Name="ContactNo" Type="String" Nullable="false" MaxLength="4000" Unicode="true" FixedLength="false" />
+	<NavigationProperty Name="Orders" Relationship="LocalDBModel.FK_CustomerOrder" FromRole="Customers" ToRole="Orders" />
   </EntityType>
   <EntityType Name="OrderItemGroup">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="OrderId" Type="Int32" Nullable="false" />
-    <Property Name="Quantity" Type="Double" Nullable="false" />
-    <Property Name="Name" Type="String" Nullable="false" MaxLength="4000" Unicode="true" FixedLength="false" />
-    <NavigationProperty Name="OrderItems" Relationship="LocalDBModel.FK_OrderItemGroupOrderItem" FromRole="OrderItemGroups" ToRole="OrderItems" />
-    <NavigationProperty Name="Orders" Relationship="LocalDBModel.FK_OrderOrderItemGroup" FromRole="OrderItemGroups" ToRole="Orders" />
+	<Key>
+	  <PropertyRef Name="Id" />
+	</Key>
+	<Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+	<Property Name="OrderId" Type="Int32" Nullable="false" />
+	<Property Name="Quantity" Type="Double" Nullable="false" />
+	<Property Name="Name" Type="String" Nullable="false" MaxLength="4000" Unicode="true" FixedLength="false" />
+	<NavigationProperty Name="OrderItems" Relationship="LocalDBModel.FK_OrderItemGroupOrderItem" FromRole="OrderItemGroups" ToRole="OrderItems" />
+	<NavigationProperty Name="Order" Relationship="LocalDBModel.FK_OrderOrderItemGroup" FromRole="OrderItemGroups" ToRole="Orders" />
   </EntityType>
   <EntityType Name="OrderItem">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="OrderItemGroupId" Type="Int32" Nullable="false" />
-    <Property Name="Name" Type="String" Nullable="false" MaxLength="4000" Unicode="true" FixedLength="false" />
-    <NavigationProperty Name="BillLines" Relationship="LocalDBModel.FK_BillLineOrderItem" FromRole="OrderItems" ToRole="BillLines" />
-    <NavigationProperty Name="OrderItemGroups" Relationship="LocalDBModel.FK_OrderItemGroupOrderItem" FromRole="OrderItems" ToRole="OrderItemGroups" />
+	<Key>
+	  <PropertyRef Name="Id" />
+	</Key>
+	<Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+	<Property Name="OrderItemGroupId" Type="Int32" Nullable="false" />
+	<Property Name="Name" Type="String" Nullable="false" MaxLength="4000" Unicode="true" FixedLength="false" />
+	<NavigationProperty Name="OrderItemGroup" Relationship="LocalDBModel.FK_OrderItemGroupOrderItem" FromRole="OrderItems" ToRole="OrderItemGroups" />
+		  <NavigationProperty Name="BillLines" Relationship="LocalDBModel.OrderItemBillLine" FromRole="OrderItem" ToRole="BillLine" />
   </EntityType>
   <EntityType Name="Order">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Venue" Type="String" Nullable="false" MaxLength="4000" Unicode="true" FixedLength="false" />
-    <Property Name="Date" Type="DateTime" Nullable="false" />
-    <Property Name="CustomerId" Type="Int32" Nullable="false" />
-    <Property Name="Note" Type="String" Nullable="false" MaxLength="4000" Unicode="true" FixedLength="false" />
-    <NavigationProperty Name="Bills" Relationship="LocalDBModel.FK_OrderBill" FromRole="Orders" ToRole="Bills" />
-    <NavigationProperty Name="Customer" Relationship="LocalDBModel.FK_CustomerOrder" FromRole="Orders" ToRole="Customers" />
-    <NavigationProperty Name="OrderItemGroups" Relationship="LocalDBModel.FK_OrderOrderItemGroup" FromRole="Orders" ToRole="OrderItemGroups" />
+	<Key>
+	  <PropertyRef Name="Id" />
+	</Key>
+	<Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+	<Property Name="Venue" Type="String" Nullable="false" MaxLength="4000" Unicode="true" FixedLength="false" />
+	<Property Name="Date" Type="DateTime" Nullable="false" />
+	<Property Name="CustomerId" Type="Int32" Nullable="false" />
+	<Property Name="Note" Type="String" Nullable="false" MaxLength="4000" Unicode="true" FixedLength="false" />
+	<NavigationProperty Name="Customer" Relationship="LocalDBModel.FK_CustomerOrder" FromRole="Orders" ToRole="Customers" />
+	<NavigationProperty Name="OrderItemGroups" Relationship="LocalDBModel.FK_OrderOrderItemGroup" FromRole="Orders" ToRole="OrderItemGroups" />
+		  <NavigationProperty Name="Bills" Relationship="LocalDBModel.OrderBill" FromRole="Order" ToRole="Bill" />
   </EntityType>
   <EntityType Name="Receipt">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Amount" Type="Double" Nullable="false" />
-    <Property Name="BillId" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="Bills" Relationship="LocalDBModel.FK_BillReceipt" FromRole="Receipts" ToRole="Bills" />
+	<Key>
+	  <PropertyRef Name="Id" />
+	</Key>
+	<Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+	<Property Name="Amount" Type="Double" Nullable="false" />
+	<Property Name="BillId" Type="Int32" Nullable="false" />
+	<Property Name="Date" Type="DateTime" />
+	<NavigationProperty Name="Bill" Relationship="LocalDBModel.FK_BillReceipt" FromRole="Receipts" ToRole="Bills" />
   </EntityType>
   <Association Name="FK_BillBillLine">
-    <End Role="Bills" Type="LocalDBModel.Bill" Multiplicity="1" />
-    <End Role="BillLines" Type="LocalDBModel.BillLine" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Bills">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="BillLines">
-        <PropertyRef Name="BillId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_BillLineOrderItem">
-    <End Role="OrderItems" Type="LocalDBModel.OrderItem" Multiplicity="1" />
-    <End Role="BillLines" Type="LocalDBModel.BillLine" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="OrderItems">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="BillLines">
-        <PropertyRef Name="Id" />
-      </Dependent>
-    </ReferentialConstraint>
+	<End Role="Bills" Type="LocalDBModel.Bill" Multiplicity="1" />
+	<End Role="BillLines" Type="LocalDBModel.BillLine" Multiplicity="*" />
+	<ReferentialConstraint>
+	  <Principal Role="Bills">
+		<PropertyRef Name="Id" />
+	  </Principal>
+	  <Dependent Role="BillLines">
+		<PropertyRef Name="BillId" />
+	  </Dependent>
+	</ReferentialConstraint>
   </Association>
   <Association Name="FK_BillReceipt">
-    <End Role="Bills" Type="LocalDBModel.Bill" Multiplicity="1" />
-    <End Role="Receipts" Type="LocalDBModel.Receipt" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Bills">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Receipts">
-        <PropertyRef Name="BillId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_OrderBill">
-    <End Role="Orders" Type="LocalDBModel.Order" Multiplicity="1" />
-    <End Role="Bills" Type="LocalDBModel.Bill" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="Orders">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Bills">
-        <PropertyRef Name="Id" />
-      </Dependent>
-    </ReferentialConstraint>
+	<End Role="Bills" Type="LocalDBModel.Bill" Multiplicity="1" />
+	<End Role="Receipts" Type="LocalDBModel.Receipt" Multiplicity="*" />
+	<ReferentialConstraint>
+	  <Principal Role="Bills">
+		<PropertyRef Name="Id" />
+	  </Principal>
+	  <Dependent Role="Receipts">
+		<PropertyRef Name="BillId" />
+	  </Dependent>
+	</ReferentialConstraint>
   </Association>
   <Association Name="FK_CustomerOrder">
-    <End Role="Customers" Type="LocalDBModel.Customer" Multiplicity="1" />
-    <End Role="Orders" Type="LocalDBModel.Order" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Customers">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Orders">
-        <PropertyRef Name="CustomerId" />
-      </Dependent>
-    </ReferentialConstraint>
+	<End Role="Customers" Type="LocalDBModel.Customer" Multiplicity="1" />
+	<End Role="Orders" Type="LocalDBModel.Order" Multiplicity="*" />
+	<ReferentialConstraint>
+	  <Principal Role="Customers">
+		<PropertyRef Name="Id" />
+	  </Principal>
+	  <Dependent Role="Orders">
+		<PropertyRef Name="CustomerId" />
+	  </Dependent>
+	</ReferentialConstraint>
   </Association>
   <Association Name="FK_OrderItemGroupOrderItem">
-    <End Role="OrderItemGroups" Type="LocalDBModel.OrderItemGroup" Multiplicity="1" />
-    <End Role="OrderItems" Type="LocalDBModel.OrderItem" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="OrderItemGroups">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="OrderItems">
-        <PropertyRef Name="OrderItemGroupId" />
-      </Dependent>
-    </ReferentialConstraint>
+	<End Role="OrderItemGroups" Type="LocalDBModel.OrderItemGroup" Multiplicity="1" />
+	<End Role="OrderItems" Type="LocalDBModel.OrderItem" Multiplicity="*" />
+	<ReferentialConstraint>
+	  <Principal Role="OrderItemGroups">
+		<PropertyRef Name="Id" />
+	  </Principal>
+	  <Dependent Role="OrderItems">
+		<PropertyRef Name="OrderItemGroupId" />
+	  </Dependent>
+	</ReferentialConstraint>
   </Association>
   <Association Name="FK_OrderOrderItemGroup">
-    <End Role="Orders" Type="LocalDBModel.Order" Multiplicity="1" />
-    <End Role="OrderItemGroups" Type="LocalDBModel.OrderItemGroup" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Orders">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="OrderItemGroups">
-        <PropertyRef Name="OrderId" />
-      </Dependent>
-    </ReferentialConstraint>
+	<End Role="Orders" Type="LocalDBModel.Order" Multiplicity="1" />
+	<End Role="OrderItemGroups" Type="LocalDBModel.OrderItemGroup" Multiplicity="*" />
+	<ReferentialConstraint>
+	  <Principal Role="Orders">
+		<PropertyRef Name="Id" />
+	  </Principal>
+	  <Dependent Role="OrderItemGroups">
+		<PropertyRef Name="OrderId" />
+	  </Dependent>
+	</ReferentialConstraint>
   </Association>
+		<Association Name="OrderBill">
+		  <End Type="LocalDBModel.Order" Role="Order" Multiplicity="1" />
+		  <End Type="LocalDBModel.Bill" Role="Bill" Multiplicity="*" />
+		  <ReferentialConstraint>
+			<Principal Role="Order">
+			  <PropertyRef Name="Id" />
+			</Principal>
+			<Dependent Role="Bill">
+			  <PropertyRef Name="OrderId" />
+			</Dependent>
+		  </ReferentialConstraint>
+		</Association>
+		<Association Name="OrderItemBillLine">
+		  <End Type="LocalDBModel.OrderItem" Role="OrderItem" Multiplicity="1" />
+		  <End Type="LocalDBModel.BillLine" Role="BillLine" Multiplicity="*" />
+		  <ReferentialConstraint>
+			<Principal Role="OrderItem">
+			  <PropertyRef Name="Id" />
+			</Principal>
+			<Dependent Role="BillLine">
+			  <PropertyRef Name="OrderItemId" />
+			</Dependent>
+		  </ReferentialConstraint>
+		</Association>
 </Schema>
 </edmx:ConceptualModels>
 <edmx:Mappings>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="LocalDBModelStoreContainer" CdmEntityContainer="LocalDBEntities">
-    <EntitySetMapping Name="BillLines">
-      <EntityTypeMapping TypeName="LocalDBModel.BillLine">
-        <MappingFragment StoreEntitySet="BillLines">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="Amount" ColumnName="Amount" />
-          <ScalarProperty Name="BillId" ColumnName="BillId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Bills">
-      <EntityTypeMapping TypeName="LocalDBModel.Bill">
-        <MappingFragment StoreEntitySet="Bills">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Customers">
-      <EntityTypeMapping TypeName="LocalDBModel.Customer">
-        <MappingFragment StoreEntitySet="Customers">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="OrderItemGroups">
-      <EntityTypeMapping TypeName="LocalDBModel.OrderItemGroup">
-        <MappingFragment StoreEntitySet="OrderItemGroups">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="OrderId" ColumnName="OrderId" />
-          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="OrderItems">
-      <EntityTypeMapping TypeName="LocalDBModel.OrderItem">
-        <MappingFragment StoreEntitySet="OrderItems">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="OrderItemGroupId" ColumnName="OrderItemGroupId" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Orders">
-      <EntityTypeMapping TypeName="LocalDBModel.Order">
-        <MappingFragment StoreEntitySet="Orders">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="Venue" ColumnName="Venue" />
-          <ScalarProperty Name="Date" ColumnName="Date" />
-          <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
-          <ScalarProperty Name="Note" ColumnName="Note" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Receipts">
-      <EntityTypeMapping TypeName="LocalDBModel.Receipt">
-        <MappingFragment StoreEntitySet="Receipts">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="Amount" ColumnName="Amount" />
-          <ScalarProperty Name="BillId" ColumnName="BillId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
+	<EntitySetMapping Name="BillLines">
+	  <EntityTypeMapping TypeName="LocalDBModel.BillLine">
+		<MappingFragment StoreEntitySet="BillLines">
+		  <ScalarProperty Name="OrderItemId" ColumnName="OrderItemId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+		  <ScalarProperty Name="Amount" ColumnName="Amount" />
+		  <ScalarProperty Name="BillId" ColumnName="BillId" />
+		</MappingFragment>
+	  </EntityTypeMapping>
+	</EntitySetMapping>
+	<EntitySetMapping Name="Bills">
+	  <EntityTypeMapping TypeName="LocalDBModel.Bill">
+		<MappingFragment StoreEntitySet="Bills">
+		  <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+		  <ScalarProperty Name="Date" ColumnName="DATE" />
+		</MappingFragment>
+	  </EntityTypeMapping>
+	</EntitySetMapping>
+	<EntitySetMapping Name="Customers">
+	  <EntityTypeMapping TypeName="LocalDBModel.Customer">
+		<MappingFragment StoreEntitySet="Customers">
+		  <ScalarProperty Name="Id" ColumnName="Id" />
+		  <ScalarProperty Name="Name" ColumnName="Name" />
+		  <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
+		</MappingFragment>
+	  </EntityTypeMapping>
+	</EntitySetMapping>
+	<EntitySetMapping Name="OrderItemGroups">
+	  <EntityTypeMapping TypeName="LocalDBModel.OrderItemGroup">
+		<MappingFragment StoreEntitySet="OrderItemGroups">
+		  <ScalarProperty Name="Id" ColumnName="Id" />
+		  <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+		  <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+		  <ScalarProperty Name="Name" ColumnName="Name" />
+		</MappingFragment>
+	  </EntityTypeMapping>
+	</EntitySetMapping>
+	<EntitySetMapping Name="OrderItems">
+	  <EntityTypeMapping TypeName="LocalDBModel.OrderItem">
+		<MappingFragment StoreEntitySet="OrderItems">
+		  <ScalarProperty Name="Id" ColumnName="Id" />
+		  <ScalarProperty Name="OrderItemGroupId" ColumnName="OrderItemGroupId" />
+		  <ScalarProperty Name="Name" ColumnName="Name" />
+		</MappingFragment>
+	  </EntityTypeMapping>
+	</EntitySetMapping>
+	<EntitySetMapping Name="Orders">
+	  <EntityTypeMapping TypeName="LocalDBModel.Order">
+		<MappingFragment StoreEntitySet="Orders">
+		  <ScalarProperty Name="Id" ColumnName="Id" />
+		  <ScalarProperty Name="Venue" ColumnName="Venue" />
+		  <ScalarProperty Name="Date" ColumnName="Date" />
+		  <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+		  <ScalarProperty Name="Note" ColumnName="Note" />
+		</MappingFragment>
+	  </EntityTypeMapping>
+	</EntitySetMapping>
+	<EntitySetMapping Name="Receipts">
+	  <EntityTypeMapping TypeName="LocalDBModel.Receipt">
+		<MappingFragment StoreEntitySet="Receipts">
+		  <ScalarProperty Name="Id" ColumnName="Id" />
+		  <ScalarProperty Name="Amount" ColumnName="Amount" />
+		  <ScalarProperty Name="BillId" ColumnName="BillId" />
+		  <ScalarProperty Name="Date" ColumnName="DATE" />
+		</MappingFragment>
+	  </EntityTypeMapping>
+	</EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>
 </edmx:Mappings>
@@ -453,46 +433,46 @@
 <Connection><DesignerInfoPropertySet><DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" /></DesignerInfoPropertySet></Connection>
 <edmx:Options />
 <edmx:Diagrams >
-      <Diagram Name="LocalDB">
-        <EntityTypeShape EntityType="LocalDBModel.BillLine" Width="1.5" PointX="9.75" PointY="5.375" Height="1.9802864583333335" IsExpanded="true" />
-        <EntityTypeShape EntityType="LocalDBModel.Bill" Width="1.5" PointX="5.25" PointY="2.5" Height="1.7879850260416674" IsExpanded="true" />
-        <EntityTypeShape EntityType="LocalDBModel.Customer" Width="1.5" PointX="0.75" PointY="4" Height="1.7879850260416657" IsExpanded="true" />
-        <EntityTypeShape EntityType="LocalDBModel.OrderItemGroup" Width="1.5" PointX="5.25" PointY="8.125" Height="2.1725878906249996" IsExpanded="true" />
-        <EntityTypeShape EntityType="LocalDBModel.OrderItem" Width="1.5" PointX="7.5" PointY="8.25" Height="1.9802864583333317" IsExpanded="true" />
-        <EntityTypeShape EntityType="LocalDBModel.Order" Width="1.5" PointX="3" PointY="3.625" Height="2.5571907552083331" IsExpanded="true" />
-        <EntityTypeShape EntityType="LocalDBModel.Receipt" Width="1.5" PointX="7.5" PointY="5.25" Height="1.7879850260416674" IsExpanded="true" />
-        <AssociationConnector Association="LocalDBModel.FK_BillBillLine" ManuallyRouted="false">
-          <ConnectorPoint PointX="6" PointY="4.2879850260416674" />
-          <ConnectorPoint PointX="6" PointY="7.2278857421875005" />
-          <ConnectorPoint PointX="9.75" PointY="7.2278857421875005" />
-        </AssociationConnector>
-        <AssociationConnector Association="LocalDBModel.FK_BillLineOrderItem" ManuallyRouted="false">
-          <ConnectorPoint PointX="9" PointY="9.2401432291666659" />
-          <ConnectorPoint PointX="10.5" PointY="9.2401432291666659" />
-          <ConnectorPoint PointX="10.5" PointY="7.3552864583333335" />
-        </AssociationConnector>
-        <AssociationConnector Association="LocalDBModel.FK_BillReceipt" ManuallyRouted="false">
-          <ConnectorPoint PointX="6.4062525" PointY="4.2879850260416674" />
-          <ConnectorPoint PointX="6.4062525" PointY="6.1439925130208337" />
-          <ConnectorPoint PointX="7.5" PointY="6.1439925130208337" />
-        </AssociationConnector>
-        <AssociationConnector Association="LocalDBModel.FK_OrderBill" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="3.9564925130208337" />
-          <ConnectorPoint PointX="5.25" PointY="3.9564925130208337" />
-        </AssociationConnector>
-        <AssociationConnector Association="LocalDBModel.FK_CustomerOrder" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="4.8939925130208328" />
-          <ConnectorPoint PointX="3" PointY="4.8939925130208328" />
-        </AssociationConnector>
-        <AssociationConnector Association="LocalDBModel.FK_OrderItemGroupOrderItem" ManuallyRouted="false">
-          <ConnectorPoint PointX="6.75" PointY="9.2401432291666659" />
-          <ConnectorPoint PointX="7.5" PointY="9.2401432291666659" />
-        </AssociationConnector>
-        <AssociationConnector Association="LocalDBModel.FK_OrderOrderItemGroup" ManuallyRouted="false">
-          <ConnectorPoint PointX="3.75" PointY="6.1821907552083335" />
-          <ConnectorPoint PointX="3.75" PointY="9.2112939453125" />
-          <ConnectorPoint PointX="5.25" PointY="9.2112939453125" />
-        </AssociationConnector>
-      </Diagram>
-    </edmx:Diagrams>
+	  <Diagram Name="LocalDB">
+		<EntityTypeShape EntityType="LocalDBModel.BillLine" Width="1.5" PointX="9.75" PointY="5.5" Height="1.9802864583333335" IsExpanded="true" />
+		<EntityTypeShape EntityType="LocalDBModel.Bill" Width="1.5" PointX="5.25" PointY="2.625" Height="1.7879850260416657" IsExpanded="true" />
+		<EntityTypeShape EntityType="LocalDBModel.Customer" Width="1.5" PointX="0.75" PointY="4.125" Height="1.7879850260416657" IsExpanded="true" />
+		<EntityTypeShape EntityType="LocalDBModel.OrderItemGroup" Width="1.5" PointX="5.25" PointY="8.25" Height="2.1725878906249996" IsExpanded="true" />
+		<EntityTypeShape EntityType="LocalDBModel.OrderItem" Width="1.5" PointX="7.5" PointY="8.375" Height="1.9802864583333317" IsExpanded="true" />
+		<EntityTypeShape EntityType="LocalDBModel.Order" Width="1.5" PointX="3" PointY="3.75" Height="2.5571907552083331" IsExpanded="true" />
+		<EntityTypeShape EntityType="LocalDBModel.Receipt" Width="1.5" PointX="7.5" PointY="5.25" Height="1.9802864583333317" IsExpanded="true" />
+		<AssociationConnector Association="LocalDBModel.FK_BillBillLine" ManuallyRouted="false">
+		  <ConnectorPoint PointX="6" PointY="4.4129850260416656" />
+		  <ConnectorPoint PointX="6" PointY="7.3865364583333326" />
+		  <ConnectorPoint PointX="9.75" PointY="7.3865364583333326" />
+		</AssociationConnector>
+		<AssociationConnector Association="LocalDBModel.FK_BillReceipt" ManuallyRouted="false">
+		  <ConnectorPoint PointX="6.4062525" PointY="4.4129850260416656" />
+		  <ConnectorPoint PointX="6.4062525" PointY="6.2401432291666659" />
+		  <ConnectorPoint PointX="7.5" PointY="6.2401432291666659" />
+		</AssociationConnector>
+		<AssociationConnector Association="LocalDBModel.FK_CustomerOrder" ManuallyRouted="false">
+		  <ConnectorPoint PointX="2.25" PointY="5.0189925130208328" />
+		  <ConnectorPoint PointX="3" PointY="5.0189925130208328" />
+		</AssociationConnector>
+		<AssociationConnector Association="LocalDBModel.FK_OrderItemGroupOrderItem" ManuallyRouted="false">
+		  <ConnectorPoint PointX="6.75" PointY="9.3651432291666659" />
+		  <ConnectorPoint PointX="7.5" PointY="9.3651432291666659" />
+		</AssociationConnector>
+		<AssociationConnector Association="LocalDBModel.FK_OrderOrderItemGroup" ManuallyRouted="false">
+		  <ConnectorPoint PointX="3.75" PointY="6.3071907552083335" />
+		  <ConnectorPoint PointX="3.75" PointY="9.3362939453125" />
+		  <ConnectorPoint PointX="5.25" PointY="9.3362939453125" />
+		</AssociationConnector>
+		<AssociationConnector Association="LocalDBModel.OrderBill">
+		  <ConnectorPoint PointX="4.5" PointY="4.2737939453125" />
+		  <ConnectorPoint PointX="5.25" PointY="4.2737939453125" />
+		</AssociationConnector>
+		<AssociationConnector Association="LocalDBModel.OrderItemBillLine">
+		  <ConnectorPoint PointX="9" PointY="9.3651432291666659" />
+		  <ConnectorPoint PointX="10.5" PointY="9.3651432291666659" />
+		  <ConnectorPoint PointX="10.5" PointY="7.672587890625" />
+		</AssociationConnector>
+	  </Diagram>
+	</edmx:Diagrams>
 </edmx:Designer></edmx:Edmx>
