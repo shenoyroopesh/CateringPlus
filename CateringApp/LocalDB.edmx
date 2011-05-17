@@ -184,14 +184,14 @@
 	  <End Role="Orders" EntitySet="Orders" />
 	  <End Role="OrderItemGroups" EntitySet="OrderItemGroups" />
 	</AssociationSet>
-		  <AssociationSet Name="OrderBill" Association="LocalDBModel.OrderBill">
-			<End Role="Order" EntitySet="Orders" />
-			<End Role="Bill" EntitySet="Bills" />
-		  </AssociationSet>
-		  <AssociationSet Name="OrderItemBillLine" Association="LocalDBModel.OrderItemBillLine">
-			<End Role="OrderItem" EntitySet="OrderItems" />
-			<End Role="BillLine" EntitySet="BillLines" />
-		  </AssociationSet>
+	<AssociationSet Name="OrderBill" Association="LocalDBModel.OrderBill">
+	  <End Role="Order" EntitySet="Orders" />
+	  <End Role="Bill" EntitySet="Bills" />
+	</AssociationSet>
+	<AssociationSet Name="OrderItemBillLine" Association="LocalDBModel.OrderItemBillLine">
+	  <End Role="OrderItem" EntitySet="OrderItems" />
+	  <End Role="BillLine" EntitySet="BillLines" />
+	</AssociationSet>
   </EntityContainer>
   <EntityType Name="BillLine">
 	<Key>
@@ -361,7 +361,7 @@
 	  <EntityTypeMapping TypeName="LocalDBModel.BillLine">
 		<MappingFragment StoreEntitySet="BillLines">
 		  <ScalarProperty Name="OrderItemId" ColumnName="OrderItemId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
+				<ScalarProperty Name="Id" ColumnName="Id" />
 		  <ScalarProperty Name="Amount" ColumnName="Amount" />
 		  <ScalarProperty Name="BillId" ColumnName="BillId" />
 		</MappingFragment>
@@ -371,7 +371,7 @@
 	  <EntityTypeMapping TypeName="LocalDBModel.Bill">
 		<MappingFragment StoreEntitySet="Bills">
 		  <ScalarProperty Name="OrderId" ColumnName="OrderId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
+				<ScalarProperty Name="Id" ColumnName="Id" />
 		  <ScalarProperty Name="Date" ColumnName="DATE" />
 		</MappingFragment>
 	  </EntityTypeMapping>

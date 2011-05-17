@@ -160,6 +160,7 @@
             this.grdBillLines.Name = "grdBillLines";
             this.grdBillLines.Size = new System.Drawing.Size(240, 150);
             this.grdBillLines.TabIndex = 4;
+            this.grdBillLines.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdBillLines_CellValueChanged);
             // 
             // tableLayoutPanel2
             // 
@@ -248,6 +249,7 @@
             this.grdBills.Name = "grdBills";
             this.grdBills.Size = new System.Drawing.Size(240, 150);
             this.grdBills.TabIndex = 3;
+            this.grdBills.SelectionChanged += new System.EventHandler(this.grdBills_SelectionChanged);
             // 
             // BillingScreen
             // 

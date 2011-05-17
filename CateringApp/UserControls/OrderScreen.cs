@@ -19,13 +19,17 @@ namespace CateringApp.UserControls
 
         public OrderScreen()
         {
-            InitializeComponent();
+            InitializeComponent();            
             Resize += new EventHandler(OrderScreen_Resize);
             foreach (DataGridView d in new DataGridView[] { grdOrders, grdGroups, grdItems })
             {
                 d.AutoGenerateColumns = d == grdOrders ? true : false;
                 d.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
                 d.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+                DataGridView tempGrid = d;
+                this.BackColorChanged += new EventHandler((object sender, EventArgs e)
+                    => { tempGrid.BackgroundColor = this.BackColor; });
+                d.BorderStyle = System.Windows.Forms.BorderStyle.None;
             }
             InitializeData();
         }
@@ -165,7 +169,7 @@ namespace CateringApp.UserControls
             grdGroups.Width = itemsPanel.Width * 4 / 10;
             grdItems.Width = itemsPanel.Width * 4 / 10;
             btnPanel.Width = orderPanel.Width * 8 / 10;
-            btnPanel.Height = btnSave.Height;
+            btnPanel.Height = btnSave.Height * 12 / 10;
             btnSave.Left = btnSave.Parent.Width * 4 / 10;
             btnNew.Left = btnNew.Parent.Width * 6 / 10;
             grdOrders.Width = orderPanel.Width * 8 / 10;

@@ -53,6 +53,7 @@
             this.lblItems = new System.Windows.Forms.Label();
             this.btnPanel = new System.Windows.Forms.Panel();
             this.btnNew = new System.Windows.Forms.Button();
+            this.lblAllOrders = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdGroups)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdItems)).BeginInit();
@@ -203,7 +204,7 @@
             this.grdGroups.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grdGroups.Location = new System.Drawing.Point(3, 16);
             this.grdGroups.Name = "grdGroups";
-            this.grdGroups.Size = new System.Drawing.Size(206, 106);
+            this.grdGroups.Size = new System.Drawing.Size(206, 93);
             this.grdGroups.TabIndex = 6;
             this.grdGroups.SelectionChanged += new System.EventHandler(this.grdGroups_SelectionChanged);
             // 
@@ -212,7 +213,7 @@
             this.grdItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grdItems.Location = new System.Drawing.Point(3, 16);
             this.grdItems.Name = "grdItems";
-            this.grdItems.Size = new System.Drawing.Size(206, 106);
+            this.grdItems.Size = new System.Drawing.Size(206, 93);
             this.grdItems.TabIndex = 7;
             // 
             // grdOrders
@@ -239,6 +240,7 @@
             this.orderPanel.Controls.Add(this.tableLayoutPanel1);
             this.orderPanel.Controls.Add(this.itemsPanel);
             this.orderPanel.Controls.Add(this.btnPanel);
+            this.orderPanel.Controls.Add(this.lblAllOrders);
             this.orderPanel.Controls.Add(this.grdOrders);
             this.orderPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.orderPanel.Location = new System.Drawing.Point(26, 17);
@@ -252,7 +254,7 @@
             this.itemsPanel.Controls.Add(this.itemsInnerPanel2);
             this.itemsPanel.Location = new System.Drawing.Point(3, 147);
             this.itemsPanel.Name = "itemsPanel";
-            this.itemsPanel.Size = new System.Drawing.Size(531, 132);
+            this.itemsPanel.Size = new System.Drawing.Size(531, 114);
             this.itemsPanel.TabIndex = 5;
             // 
             // itemsInnerPanel1
@@ -297,9 +299,9 @@
             // 
             this.btnPanel.Controls.Add(this.btnNew);
             this.btnPanel.Controls.Add(this.btnSave);
-            this.btnPanel.Location = new System.Drawing.Point(3, 285);
+            this.btnPanel.Location = new System.Drawing.Point(3, 267);
             this.btnPanel.Name = "btnPanel";
-            this.btnPanel.Size = new System.Drawing.Size(531, 30);
+            this.btnPanel.Size = new System.Drawing.Size(531, 35);
             this.btnPanel.TabIndex = 6;
             // 
             // btnNew
@@ -311,6 +313,15 @@
             this.btnNew.Text = "&New";
             this.btnNew.UseVisualStyleBackColor = true;
             this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
+            // 
+            // lblAllOrders
+            // 
+            this.lblAllOrders.AutoSize = true;
+            this.lblAllOrders.Location = new System.Drawing.Point(3, 305);
+            this.lblAllOrders.Name = "lblAllOrders";
+            this.lblAllOrders.Size = new System.Drawing.Size(52, 13);
+            this.lblAllOrders.TabIndex = 11;
+            this.lblAllOrders.Text = "All Orders";
             // 
             // OrderScreen
             // 
@@ -326,6 +337,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.grdItems)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdOrders)).EndInit();
             this.orderPanel.ResumeLayout(false);
+            this.orderPanel.PerformLayout();
             this.itemsPanel.ResumeLayout(false);
             this.itemsInnerPanel1.ResumeLayout(false);
             this.itemsInnerPanel1.PerformLayout();
@@ -363,5 +375,6 @@
         private System.Windows.Forms.FlowLayoutPanel itemsInnerPanel2;
         private System.Windows.Forms.Label lblGroups;
         private System.Windows.Forms.Label lblItems;
+        private System.Windows.Forms.Label lblAllOrders;
     }
 }

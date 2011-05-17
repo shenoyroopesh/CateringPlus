@@ -23,6 +23,10 @@ namespace CateringApp.UserControls
                 d.AutoGenerateColumns = true;
                 d.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
                 d.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+                DataGridView tempGrid = d;
+                this.BackColorChanged += new EventHandler((object sender, EventArgs e)
+                    => { tempGrid.BackgroundColor = this.BackColor; });
+                d.BorderStyle = System.Windows.Forms.BorderStyle.None;
             }
             InitializeData();
 
@@ -31,6 +35,7 @@ namespace CateringApp.UserControls
 
         void BillingScreen_ParentChanged(object sender, EventArgs e)
         {
+            if (this.ParentForm == null) return;
             InitializeData();
         }
 
@@ -45,11 +50,12 @@ namespace CateringApp.UserControls
                                                 Customer = p.Order.Customer.Name,
                                                 Total = p.BillLines.Count == 0? 0: p.BillLines.Select(b => b.Amount).Sum()
                                             });
-
-            //load the dropdowns
-            cmbOrderNo.DataSource = context.Orders.Where(p => p.Bills.Count == 0);
-            cmbOrderNo.DisplayMember = "Id";
         }
+
+        private void loadUnbilledOrders() { cmbOrderNo.DataSource = context.Orders.Where(p => p.Bills.Count == 0); cmbOrderNo.DisplayMember = "Id"; }
+
+        private void loadAllOrders() { cmbOrderNo.DataSource = context.Orders; cmbOrderNo.DisplayMember = "Id"; }
+
 
         private void BillingScreen_Resize(object sender, EventArgs e)
         {
@@ -67,11 +73,14 @@ namespace CateringApp.UserControls
 
         private void btnNew_Click(object sender, EventArgs e)
         {
+            //lose the previous changes
+            context = new LocalDBEntities();
             bill = new Bill();            
             bill.Date = DateTime.Now.Date;
             context.Bills.AddObject(bill);
             bindBillToUI(bill);
-            cmbOrderNo.Text = "";            
+            cmbOrderNo.Text = "";
+            loadUnbilledOrders();
         }
 
         private void bindBillToUI(Bill bill)
@@ -80,9 +89,11 @@ namespace CateringApp.UserControls
             if (bill.Order != null)
             {
                 grdBillLines.AutoGenerateColumns = true;
-                cmbOrderNo.SelectedItem = bill.Order;
+                cmbOrderNo.Text = bill.Order.Id.ToString();
+                cmbOrderNo.DisplayMember = "Id";
                 RefreshBillLines();
-            }          
+            }
+            cmbOrderNo.Enabled = (bill.Id == 0);
         }
 
         private void RefreshBillLines()
@@ -97,6 +108,8 @@ namespace CateringApp.UserControls
                         from b in outer.DefaultIfEmpty()
                         select new
                         {
+                            BillLineId = b == null? "" : b.Id.ToString(),
+                            ItemId = i.Id.ToString(),
                             Name = i.OrderItemGroup.Name + "-" + i.Name,
                             Quantity = i.OrderItemGroup.Quantity,
                             Amount = b == null ? 0 : b.Amount
@@ -106,11 +119,52 @@ namespace CateringApp.UserControls
             binder.DataSource = query;
             grdBillLines.DataSource = binder;
 
-            lblTotalAmountValue.Text = query.Select(p => p.Amount).Sum().ToString();
+            if (grdBillLines.Columns["BillLineId"] != null) grdBillLines.Columns["BillLineId"].Visible = false;
+            if (grdBillLines.Columns["ItemId"] != null) grdBillLines.Columns["ItemId"].Visible = false;
+            if (grdBillLines.Columns["Amount"] != null) grdBillLines.Columns["Amount"].Visible = false;
+
+            //since original Amount column cannot be modified, add another column that can be
+            if (grdBillLines.Columns["AmountShown"] == null && grdBillLines.Columns["Amount"] != null)
+            {
+                grdBillLines.Columns.Add("AmountShown", "Amount");
+            }
+
+            foreach (DataGridViewRow row in grdBillLines.Rows) 
+            { 
+                row.Cells["AmountShown"].Value = row.Cells["Amount"].Value; 
+            }
         }
+
+
+
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            //put the line level info into the bill lines
+            foreach (DataGridViewRow row in grdBillLines.Rows)
+            {
+                double amount;
+                //new rows
+                if (row.Cells["BillLineId"].Value == null || 
+                    row.Cells["BillLineId"].Value.ToString() == "" || 
+                    row.Cells["BillLineId"].Value.ToString() == "0")
+                {
+                    BillLine line = new BillLine();
+                    if (!Double.TryParse(row.Cells["AmountShown"].Value.ToString(), out amount)) amount = 0;
+                    line.Amount = amount;
+                    line.OrderItemId = Convert.ToInt32(row.Cells["ItemId"].Value);
+                    bill.BillLines.Add(line);
+                }
+                else
+                {
+                    //existing bill lines
+                    int billLineId = Convert.ToInt32(row.Cells["BillLineId"].Value);
+                    BillLine line = bill.BillLines.Where(p => p.Id == billLineId).First();
+                    if (!Double.TryParse(row.Cells["AmountShown"].Value.ToString(), out amount)) amount = 0;
+                    line.Amount = amount;
+                }
+            }
+            if(bill.Id == 0) context.Bills.AddObject(bill);
             context.SaveChanges(SaveOptions.AcceptAllChangesAfterSave);
             MessageBox.Show("Saved Successfully");
             InitializeData();
@@ -118,7 +172,7 @@ namespace CateringApp.UserControls
 
         private void cmbOrderNo_SelectedValueChanged(object sender, EventArgs e)
         {
-            if (bill == null) return;
+            if (bill == null || bill.Id != 0) return; //allowed only for new bills
 
             bill.Order = (Order)cmbOrderNo.SelectedItem;
 
@@ -133,6 +187,23 @@ namespace CateringApp.UserControls
                 lblCustomerNameValue.Text = bill.Order.Customer.Name;
                 RefreshBillLines();
             }
+        }
+
+        private void grdBills_SelectionChanged(object sender, EventArgs e)
+        {
+            //show the selection in the main form
+            int billId = Convert.ToInt32(grdBills.CurrentRow.Cells["Id"].Value);
+            loadAllOrders();
+            bill = context.Bills.Where(p => p.Id == billId).First();
+            bindBillToUI(bill);
+        }
+
+        private void grdBillLines_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            lblTotalAmountValue.Text = grdBillLines.Rows.Cast<DataGridViewRow>()
+                                            .Select(row =>
+                                                row.Cells["AmountShown"].Value ==  null ? 0 : Double.Parse(row.Cells["AmountShown"].Value.ToString()))
+                                                    .Sum().ToString();
         }
     }
 }

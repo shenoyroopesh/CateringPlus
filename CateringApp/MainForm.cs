@@ -17,7 +17,6 @@ namespace CateringApp
     public partial class MainForm : Form
     {
         public static Color DEFAULT_BACKGROUND = Color.White;
-
         List<menuMap> menuItems = new List<menuMap>();
 
         /// <summary>
@@ -25,17 +24,15 @@ namespace CateringApp
         /// </summary>
         public MainForm()
         {
-            InitializeComponent();
-            FormBorderStyle = FormBorderStyle.None;
-            Font font = new Font(SystemFonts.MessageBoxFont.FontFamily, 12);
-            Font = font;
-            menuStrip1.Font = font;
+            InitializeComponent();            
             WindowState = FormWindowState.Maximized;
+            FormBorderStyle = FormBorderStyle.None;
+            setFonts();
 
             //initialize menu items 
             menuItems.Add(new menuMap(new ToolStripMenuItem("Order"), new OrderScreen(), Color.Beige));
             menuItems.Add(new menuMap(new ToolStripMenuItem("Billing"), new BillingScreen(), Color.AliceBlue));            
-            menuItems.Add(new menuMap(new ToolStripMenuItem("Receipt"), new ReceiptScreen(), Color.Cyan));
+            menuItems.Add(new menuMap(new ToolStripMenuItem("Receipt"), new ReceiptScreen(), Color.Bisque));
 
             /* *****************
              * LAYOUT SECTION
@@ -74,6 +71,30 @@ namespace CateringApp
             mainFormContainer.BackColor = DEFAULT_BACKGROUND;
             menuStrip1.BackColor = DEFAULT_BACKGROUND;
         }
+
+        //this is public since it can be called from within the user controls too, whenever they are reloaded
+        public void setFonts()
+        {            
+            Font font = new Font(SystemFonts.MessageBoxFont.FontFamily, 12);
+            this.Font = font;
+            menuStrip1.Font = font;
+            setChildFont(this, font);
+        }
+
+        /// <summary>
+        /// Iteratively applies the font style to each child control
+        /// </summary>
+        /// <param name="uc"></param>
+        /// <param name="font"></param>
+        private void setChildFont(Control uc, Font font)
+        {
+            foreach (Control c in uc.Controls)
+            {
+                c.Font = font;            
+                setChildFont(c, font);
+            }
+        }
+
 
         void MainForm_Resize(object sender, EventArgs e)
         {
