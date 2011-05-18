@@ -30,9 +30,9 @@ namespace CateringApp
             setFonts();
 
             //initialize menu items 
-            menuItems.Add(new menuMap(new ToolStripMenuItem("Order"), new OrderScreen(), Color.Beige));
-            menuItems.Add(new menuMap(new ToolStripMenuItem("Billing"), new BillingScreen(), Color.AliceBlue));            
-            menuItems.Add(new menuMap(new ToolStripMenuItem("Receipt"), new ReceiptScreen(), Color.Bisque));
+            menuItems.Add(new menuMap(new ToolStripMenuItem("Order"), new OrderScreen(), Color.FromArgb(186, 219, 249)));
+            menuItems.Add(new menuMap(new ToolStripMenuItem("Billing"), new BillingScreen(), Color.PeachPuff));            
+            menuItems.Add(new menuMap(new ToolStripMenuItem("Receipt"), new ReceiptScreen(), Color.CornflowerBlue));
 
             /* *****************
              * LAYOUT SECTION
