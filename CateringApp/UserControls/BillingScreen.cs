@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Data.Objects;
+using Microsoft.Reporting.WinForms;
+
 
 namespace CateringApp.UserControls
 {
@@ -29,7 +31,6 @@ namespace CateringApp.UserControls
                 d.BorderStyle = System.Windows.Forms.BorderStyle.None;
             }
             InitializeData();
-
             this.ParentChanged += new EventHandler(BillingScreen_ParentChanged);
         }
 
@@ -204,6 +205,18 @@ namespace CateringApp.UserControls
                                             .Select(row =>
                                                 row.Cells["AmountShown"].Value ==  null ? 0 : Double.Parse(row.Cells["AmountShown"].Value.ToString()))
                                                     .Sum().ToString();
+        }
+
+        private void btnPrint_Click(object sender, EventArgs e)
+        {
+            string repPath = @"..\Reports\BillPrint.rdlc";
+
+            ReportViewer rView = new ReportViewer();
+            rView.Dock = DockStyle.Fill;
+            this.Controls.Add(rView);
+            rView.LocalReport.DataSources.Add(new ReportDataSource("bill", bill));
+
+            rView.LocalReport.ReportPath = repPath;
         }
     }
 }

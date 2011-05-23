@@ -54,6 +54,7 @@
             this.btnPanel = new System.Windows.Forms.Panel();
             this.btnNew = new System.Windows.Forms.Button();
             this.lblAllOrders = new System.Windows.Forms.Label();
+            this.btnPrint = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdGroups)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdItems)).BeginInit();
@@ -297,6 +298,7 @@
             // 
             // btnPanel
             // 
+            this.btnPanel.Controls.Add(this.btnPrint);
             this.btnPanel.Controls.Add(this.btnNew);
             this.btnPanel.Controls.Add(this.btnSave);
             this.btnPanel.Location = new System.Drawing.Point(3, 267);
@@ -306,7 +308,7 @@
             // 
             // btnNew
             // 
-            this.btnNew.Location = new System.Drawing.Point(87, 4);
+            this.btnNew.Location = new System.Drawing.Point(168, 4);
             this.btnNew.Name = "btnNew";
             this.btnNew.Size = new System.Drawing.Size(75, 23);
             this.btnNew.TabIndex = 9;
@@ -322,6 +324,16 @@
             this.lblAllOrders.Size = new System.Drawing.Size(52, 13);
             this.lblAllOrders.TabIndex = 11;
             this.lblAllOrders.Text = "All Orders";
+            // 
+            // btnPrint
+            // 
+            this.btnPrint.Location = new System.Drawing.Point(87, 4);
+            this.btnPrint.Name = "btnPrint";
+            this.btnPrint.Size = new System.Drawing.Size(75, 23);
+            this.btnPrint.TabIndex = 10;
+            this.btnPrint.Text = "Print";
+            this.btnPrint.UseVisualStyleBackColor = true;
+            this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
             // 
             // OrderScreen
             // 
@@ -376,5 +388,6 @@
         private System.Windows.Forms.Label lblGroups;
         private System.Windows.Forms.Label lblItems;
         private System.Windows.Forms.Label lblAllOrders;
+        private System.Windows.Forms.Button btnPrint;
     }
 }

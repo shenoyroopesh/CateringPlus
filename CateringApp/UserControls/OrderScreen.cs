@@ -170,10 +170,14 @@ namespace CateringApp.UserControls
             grdItems.Width = itemsPanel.Width * 4 / 10;
             btnPanel.Width = orderPanel.Width * 8 / 10;
             btnPanel.Height = btnSave.Height * 12 / 10;
-            btnSave.Left = btnSave.Parent.Width * 4 / 10;
+            btnSave.Left = btnSave.Parent.Width * 2 / 10;
+            btnPrint.Left = btnPrint.Parent.Width * 4 / 10;
             btnNew.Left = btnNew.Parent.Width * 6 / 10;
             grdOrders.Width = orderPanel.Width * 8 / 10;
         }
 
+        private void btnPrint_Click(object sender, EventArgs e)
+        {
+        }
     }
 }
