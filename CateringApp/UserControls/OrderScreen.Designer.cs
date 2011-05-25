@@ -52,9 +52,9 @@
             this.itemsInnerPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.lblItems = new System.Windows.Forms.Label();
             this.btnPanel = new System.Windows.Forms.Panel();
+            this.btnPrint = new System.Windows.Forms.Button();
             this.btnNew = new System.Windows.Forms.Button();
             this.lblAllOrders = new System.Windows.Forms.Label();
-            this.btnPrint = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdGroups)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdItems)).BeginInit();
@@ -205,7 +205,7 @@
             this.grdGroups.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grdGroups.Location = new System.Drawing.Point(3, 16);
             this.grdGroups.Name = "grdGroups";
-            this.grdGroups.Size = new System.Drawing.Size(206, 93);
+            this.grdGroups.Size = new System.Drawing.Size(206, 85);
             this.grdGroups.TabIndex = 6;
             this.grdGroups.SelectionChanged += new System.EventHandler(this.grdGroups_SelectionChanged);
             // 
@@ -214,15 +214,15 @@
             this.grdItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grdItems.Location = new System.Drawing.Point(3, 16);
             this.grdItems.Name = "grdItems";
-            this.grdItems.Size = new System.Drawing.Size(206, 93);
+            this.grdItems.Size = new System.Drawing.Size(206, 85);
             this.grdItems.TabIndex = 7;
             // 
             // grdOrders
             // 
             this.grdOrders.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grdOrders.Location = new System.Drawing.Point(3, 321);
+            this.grdOrders.Location = new System.Drawing.Point(3, 315);
             this.grdOrders.Name = "grdOrders";
-            this.grdOrders.Size = new System.Drawing.Size(448, 150);
+            this.grdOrders.Size = new System.Drawing.Size(448, 140);
             this.grdOrders.TabIndex = 10;
             this.grdOrders.SelectionChanged += new System.EventHandler(this.grdOrders_SelectionChanged);
             // 
@@ -244,7 +244,7 @@
             this.orderPanel.Controls.Add(this.lblAllOrders);
             this.orderPanel.Controls.Add(this.grdOrders);
             this.orderPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.orderPanel.Location = new System.Drawing.Point(26, 17);
+            this.orderPanel.Location = new System.Drawing.Point(26, 5);
             this.orderPanel.Name = "orderPanel";
             this.orderPanel.Size = new System.Drawing.Size(547, 603);
             this.orderPanel.TabIndex = 5;
@@ -255,7 +255,7 @@
             this.itemsPanel.Controls.Add(this.itemsInnerPanel2);
             this.itemsPanel.Location = new System.Drawing.Point(3, 147);
             this.itemsPanel.Name = "itemsPanel";
-            this.itemsPanel.Size = new System.Drawing.Size(531, 114);
+            this.itemsPanel.Size = new System.Drawing.Size(531, 108);
             this.itemsPanel.TabIndex = 5;
             // 
             // itemsInnerPanel1
@@ -301,10 +301,20 @@
             this.btnPanel.Controls.Add(this.btnPrint);
             this.btnPanel.Controls.Add(this.btnNew);
             this.btnPanel.Controls.Add(this.btnSave);
-            this.btnPanel.Location = new System.Drawing.Point(3, 267);
+            this.btnPanel.Location = new System.Drawing.Point(3, 261);
             this.btnPanel.Name = "btnPanel";
             this.btnPanel.Size = new System.Drawing.Size(531, 35);
             this.btnPanel.TabIndex = 6;
+            // 
+            // btnPrint
+            // 
+            this.btnPrint.Location = new System.Drawing.Point(87, 4);
+            this.btnPrint.Name = "btnPrint";
+            this.btnPrint.Size = new System.Drawing.Size(75, 23);
+            this.btnPrint.TabIndex = 10;
+            this.btnPrint.Text = "Print";
+            this.btnPrint.UseVisualStyleBackColor = true;
+            this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
             // 
             // btnNew
             // 
@@ -319,21 +329,11 @@
             // lblAllOrders
             // 
             this.lblAllOrders.AutoSize = true;
-            this.lblAllOrders.Location = new System.Drawing.Point(3, 305);
+            this.lblAllOrders.Location = new System.Drawing.Point(3, 299);
             this.lblAllOrders.Name = "lblAllOrders";
             this.lblAllOrders.Size = new System.Drawing.Size(52, 13);
             this.lblAllOrders.TabIndex = 11;
             this.lblAllOrders.Text = "All Orders";
-            // 
-            // btnPrint
-            // 
-            this.btnPrint.Location = new System.Drawing.Point(87, 4);
-            this.btnPrint.Name = "btnPrint";
-            this.btnPrint.Size = new System.Drawing.Size(75, 23);
-            this.btnPrint.TabIndex = 10;
-            this.btnPrint.Text = "Print";
-            this.btnPrint.UseVisualStyleBackColor = true;
-            this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
             // 
             // OrderScreen
             // 

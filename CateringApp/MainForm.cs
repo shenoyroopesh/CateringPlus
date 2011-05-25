@@ -26,13 +26,16 @@ namespace CateringApp
         {
             InitializeComponent();            
             WindowState = FormWindowState.Maximized;
-            FormBorderStyle = FormBorderStyle.None;
+            FormBorderStyle = FormBorderStyle.Sizable;
             setFonts();
 
             //initialize menu items 
             menuItems.Add(new menuMap(new ToolStripMenuItem("Order"), new OrderScreen(), Color.FromArgb(186, 219, 249)));
             menuItems.Add(new menuMap(new ToolStripMenuItem("Billing"), new BillingScreen(), Color.PeachPuff));            
             menuItems.Add(new menuMap(new ToolStripMenuItem("Receipt"), new ReceiptScreen(), Color.CornflowerBlue));
+            menuItems.Add(new menuMap(new ToolStripMenuItem("Daily Items Summary"), new DailyItemsReportUI(), Color.Bisque));
+            
+
 
             /* *****************
              * LAYOUT SECTION

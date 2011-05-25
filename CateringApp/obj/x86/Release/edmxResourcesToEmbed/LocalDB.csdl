@@ -13,8 +13,8 @@
       <End Role="BillLines" EntitySet="BillLines" />
     </AssociationSet>
     <AssociationSet Name="FK_BillReceipt" Association="LocalDBModel.FK_BillReceipt">
-      <End Role="Bills" EntitySet="Bills" />
-      <End Role="Receipts" EntitySet="Receipts" />
+      <End EntitySet="Bills" Role="Bills" />
+      <End EntitySet="Receipts" Role="Receipts" />
     </AssociationSet>
     <AssociationSet Name="FK_CustomerOrder" Association="LocalDBModel.FK_CustomerOrder">
       <End Role="Customers" EntitySet="Customers" />
@@ -108,7 +108,7 @@
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Amount" Type="Double" Nullable="false" />
-    <Property Name="BillId" Type="Int32" Nullable="false" />
+    <Property Name="BillId" Nullable="false" Type="Int32" />
     <Property Name="Date" Type="DateTime" />
     <NavigationProperty Name="Bill" Relationship="LocalDBModel.FK_BillReceipt" FromRole="Receipts" ToRole="Bills" />
   </EntityType>
@@ -125,8 +125,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_BillReceipt">
-    <End Role="Bills" Type="LocalDBModel.Bill" Multiplicity="1" />
-    <End Role="Receipts" Type="LocalDBModel.Receipt" Multiplicity="*" />
+    <End Type="LocalDBModel.Bill" Multiplicity="1" Role="Bills" />
+    <End Type="LocalDBModel.Receipt" Multiplicity="*" Role="Receipts" />
     <ReferentialConstraint>
       <Principal Role="Bills">
         <PropertyRef Name="Id" />

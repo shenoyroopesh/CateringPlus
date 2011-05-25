@@ -209,14 +209,6 @@ namespace CateringApp.UserControls
 
         private void btnPrint_Click(object sender, EventArgs e)
         {
-            string repPath = @"..\Reports\BillPrint.rdlc";
-
-            ReportViewer rView = new ReportViewer();
-            rView.Dock = DockStyle.Fill;
-            this.Controls.Add(rView);
-            rView.LocalReport.DataSources.Add(new ReportDataSource("bill", bill));
-
-            rView.LocalReport.ReportPath = repPath;
         }
     }
 }

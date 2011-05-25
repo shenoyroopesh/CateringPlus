@@ -15,3 +15,5 @@ C:\Users\Roopesh\documents\visual studio 2010\Projects\CateringApp\CateringApp\o
 C:\Users\Roopesh\documents\visual studio 2010\Projects\CateringApp\CateringApp\bin\Debug\System.Data.SqlServerCe.dll
 C:\Users\Roopesh\documents\visual studio 2010\Projects\CateringApp\CateringApp\obj\x86\Debug\RdlCompile.cache
 C:\Users\Roopesh\documents\visual studio 2010\Projects\CateringApp\CateringApp\obj\x86\Debug\RdlCompile.compiled
+C:\Users\Roopesh\documents\visual studio 2010\Projects\CateringApp\CateringApp\obj\x86\Debug\CateringApp.UserControls.DailyItemsReportUI.resources
+C:\Users\Roopesh\documents\visual studio 2010\Projects\CateringApp\CateringApp\obj\x86\Debug\CateringApp.Reports.DailyItemsReportForm.resources
